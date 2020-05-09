@@ -1,0 +1,14 @@
+/*功能结构具有局限型，只适用通用的 一对多布局*/
+
+.sonTablePanel{
+    padding: 5px;
+}
+.sonTablePanel>.addRowBtn{
+    margin-bottom: 5px;
+}
+.sonTablePanel>.tpl{
+    display: none;
+}
+.sonTablePanel table{
+    width: 100%;
+}

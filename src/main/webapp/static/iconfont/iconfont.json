@@ -1,0 +1,317 @@
+{
+  "id": "959474",
+  "name": "my_curd_pro_tree",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "123123",
+      "name": "表单",
+      "font_class": "business-form",
+      "unicode": "e6cc",
+      "unicode_decimal": 59084
+    },
+    {
+      "icon_id": "128843",
+      "name": "cancel-circle",
+      "font_class": "cancel",
+      "unicode": "e728",
+      "unicode_decimal": 59176
+    },
+    {
+      "icon_id": "220471",
+      "name": "task-line",
+      "font_class": "task",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "394840",
+      "name": "download",
+      "font_class": "download",
+      "unicode": "e6c1",
+      "unicode_decimal": 59073
+    },
+    {
+      "icon_id": "410568",
+      "name": "密码重置",
+      "font_class": "reset-pwd",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "478772",
+      "name": "可选",
+      "font_class": "my-candidate-task2",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "543047",
+      "name": "添加",
+      "font_class": "add",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "605457",
+      "name": "代码生成",
+      "font_class": "gencode",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "651947",
+      "name": "search",
+      "font_class": "search",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "678054",
+      "name": "用户",
+      "font_class": "user",
+      "unicode": "e690",
+      "unicode_decimal": 59024
+    },
+    {
+      "icon_id": "736604",
+      "name": "check-box-outline-blank",
+      "font_class": "no-check",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "797164",
+      "name": "系统配置",
+      "font_class": "manage",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "1190483",
+      "name": "workflow",
+      "font_class": "workflow",
+      "unicode": "e8dc",
+      "unicode_decimal": 59612
+    },
+    {
+      "icon_id": "1200185",
+      "name": "配置",
+      "font_class": "config",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "1287591",
+      "name": "审批",
+      "font_class": "audit",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "1305401",
+      "name": "历史",
+      "font_class": "my-complete-task",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "1417471",
+      "name": "标识类_已读信息",
+      "font_class": "all-read",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "1469304",
+      "name": "setting",
+      "font_class": "setting",
+      "unicode": "e874",
+      "unicode_decimal": 59508
+    },
+    {
+      "icon_id": "1718630",
+      "name": "upload",
+      "font_class": "upload",
+      "unicode": "e6fe",
+      "unicode_decimal": 59134
+    },
+    {
+      "icon_id": "2071528",
+      "name": "独立访问",
+      "font_class": "visit-log",
+      "unicode": "e693",
+      "unicode_decimal": 59027
+    },
+    {
+      "icon_id": "2284769",
+      "name": "organization_icon",
+      "font_class": "org-tree",
+      "unicode": "e6b6",
+      "unicode_decimal": 59062
+    },
+    {
+      "icon_id": "2678687",
+      "name": "解锁",
+      "font_class": "account-unlock",
+      "unicode": "e6e7",
+      "unicode_decimal": 59111
+    },
+    {
+      "icon_id": "3427832",
+      "name": "编辑",
+      "font_class": "edit",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "3841276",
+      "name": "机构管理",
+      "font_class": "org",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "3978311",
+      "name": "查看导入记录",
+      "font_class": "import",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "4226837",
+      "name": "菜单栏_设置",
+      "font_class": "menu",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "4251550",
+      "name": "通知",
+      "font_class": "bell",
+      "unicode": "e6d6",
+      "unicode_decimal": 59094
+    },
+    {
+      "icon_id": "4317674",
+      "name": "角色",
+      "font_class": "role",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "4747386",
+      "name": "权限管理-选中",
+      "font_class": "permission",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "5067809",
+      "name": "数据字典管理",
+      "font_class": "dict",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "5085495",
+      "name": "查看解析",
+      "font_class": "look",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "5203234",
+      "name": "导出",
+      "font_class": "export",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "5924912",
+      "name": "save",
+      "font_class": "save",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "6400263",
+      "name": "删除",
+      "font_class": "delete",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "6510091",
+      "name": "实例类型",
+      "font_class": "notice-type",
+      "unicode": "e834",
+      "unicode_decimal": 59444
+    },
+    {
+      "icon_id": "6627966",
+      "name": "流程部署",
+      "font_class": "deployment",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "6970024",
+      "name": "流程",
+      "font_class": "my-process",
+      "unicode": "e700",
+      "unicode_decimal": 59136
+    },
+    {
+      "icon_id": "7239455",
+      "name": "experiment",
+      "font_class": "experiment",
+      "unicode": "e6ee",
+      "unicode_decimal": 59118
+    },
+    {
+      "icon_id": "7974112",
+      "name": "流程定义",
+      "font_class": "process-definition1",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "10069705",
+      "name": "代办",
+      "font_class": "my-task",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "10527595",
+      "name": "OA",
+      "font_class": "OA",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "10914859",
+      "name": "checkbox-indeterminate-line",
+      "font_class": "half-check",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "10972256",
+      "name": "checkmark-square-2-outline",
+      "font_class": "check",
+      "unicode": "e6aa",
+      "unicode_decimal": 59050
+    },
+    {
+      "icon_id": "11072557",
+      "name": "47-解锁",
+      "font_class": "unlock",
+      "unicode": "e82b",
+      "unicode_decimal": 59435
+    }
+  ]
+}

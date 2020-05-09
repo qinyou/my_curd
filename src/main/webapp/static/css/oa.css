@@ -1,0 +1,16 @@
+
+/*流程标题*/
+.instance-detail-title {
+    margin-bottom: 5px;
+    padding: 5px 2px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+}
+.instance-detail-second-title{
+    margin-bottom: 5px;
+    padding: 5px 2px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 400;
+}

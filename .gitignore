@@ -1,0 +1,16 @@
+*.log
+.settings
+/.settings
+.classpath
+.project
+.idea
+/.idea
+/out
+out
+*.iml
+/target
+target
+/log
+log
+**/upload
+test.html

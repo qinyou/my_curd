@@ -1,0 +1,13 @@
+/*easyui tree 默认图标修改 为字体图标*/
+.tree-folder{
+    background: none;
+}
+.tree-folder.tree-folder-open{
+    background: none;
+}
+.tree-file{
+    background: none;
+}
+.tree-folder:before {  content: "\e601";}
+.tree-folder.tree-folder-open:before {  content: "\e701"; }
+.tree-file:before { content: "\e791"; }

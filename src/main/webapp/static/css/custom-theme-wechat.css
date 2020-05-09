@@ -1,0 +1,161 @@
+/*主题配色等*/
+.mainHeader  ul.headerMenu{
+    background-color: #09b83e;
+}
+
+/*easyui linkbutton 按钮字体图标*/
+.l-btn-icon.iconfont{
+    color:#09b83e;
+}
+
+/*树形菜单*/
+.tree-icon.iconfont{
+    color: #09b83e;
+}
+
+/* main.ftl 中 tab */
+#tabGroup .iconfont{
+    color:#09b83e;
+}
+
+
+/*主体按钮样式*/
+.pure-button-primary{
+      background-color: #09b83e !important;
+}
+
+a:hover{
+    color:#09b83e;
+}
+
+/*input focus*/
+.pure-form input:not([type]):focus, .pure-form input[type=password]:focus, .pure-form input[type=email]:focus, .pure-form input[type=url]:focus, .pure-form input[type=date]:focus, .pure-form input[type=month]:focus, .pure-form input[type=time]:focus, .pure-form input[type=datetime]:focus, .pure-form input[type=datetime-local]:focus, .pure-form input[type=week]:focus, .pure-form input[type=tel]:focus, .pure-form input[type=color]:focus, .pure-form input[type=number]:focus, .pure-form input[type=search]:focus, .pure-form input[type=text]:focus, .pure-form select:focus, .pure-form textarea:focus {
+    border-color: #09b83e !important;
+}
+
+.pure-form input[type=file]:focus, .pure-form input[type=checkbox]:focus, .pure-form input[type=radio]:focus {
+    outline: #09b83e auto 1px !important;
+}
+
+
+/*layer 弹窗*/
+.layui-layer-lan .layui-layer-title {
+    background: #09b83e !important;
+}
+
+.layui-layer-lan .layui-layer-btn0 {
+    background: #09b83e !important;
+}
+
+/*checkbox 颜色*/
+div[class*='datagrid-']>input[type=checkbox]:checked::before {
+    border: 1px solid #09b83e;
+    background-color: #09b83e;
+}
+
+
+.sidebar .tree-node-selected {
+    border-left:none;
+    border-right:  2px solid #09b83e  !important;
+}
+
+
+/*easyui */
+.accordion .accordion-header-selected .panel-title {
+    color: #09b83e !important;
+}
+.l-btn-selected,
+.l-btn-selected:hover {
+    background: #09b83e  !important;
+}
+.l-btn-plain-selected,
+.l-btn-plain-selected:hover {
+    background: #09b83e  !important;
+}
+
+.combobox-item-selected {
+    color: #09b83e  !important;
+}
+
+.tabs-header .tabs-pill li.tabs-selected a.tabs-inner {
+    color: #09b83e  !important;
+}
+.datagrid-row-selected {
+    color: #09b83e  !important;
+}
+
+.progressbar-value,
+.progressbar-value .progressbar-text {
+    color: #09b83e  !important;
+}
+.switchbutton-on {
+    color: #09b83e  !important;
+}
+.tree-node-selected {
+    color: #09b83e  !important;
+}
+.radiobutton {
+    border: 2px solid #09b83e  !important;
+}
+.radiobutton-inner {
+    background: #09b83e  !important;
+}
+
+.checkbox {
+    border: 2px solid #09b83e  !important;
+}
+.checkbox-checked {
+    background: #09b83e  !important;
+}
+.sidemenu .tree-node-selected {
+    border-right: 2px solid #09b83e  !important;
+    color: #09b83e  !important;
+}
+.textbox-focused {
+    border-color: #09b83e  !important;
+    border-top-color: transparent  !important;
+    border-left-color: transparent  !important;
+    border-right-color: transparent  !important;
+    -moz-box-shadow: 0 0 3px 0 transparent  !important;
+    -webkit-box-shadow: 0 0 3px 0 transparent  !important;
+    box-shadow: 0 0 3px 0 transparent  !important;
+}
+.datagrid-row-selected .datagrid-cell-rownumber {
+    color: #09b83e  !important;
+}
+.tree-node-selected {
+    border-left: 2px solid #09b83e ;
+}
+.calendar-selected {
+    background: #09b83e  !important;
+    color: #fff  !important;
+    border-color: transparent  !important;
+}
+.calendar-today {
+    color: #09b83e ;
+}
+.tabs li.tabs-selected a.tabs-inner {
+    color: #09b83e  !important;
+}
+
+.tabs-header .tabs li.tabs-selected a.tabs-inner{
+    border-bottom: 2px solid #09b83e  !important;
+}
+
+.tabs-header-bottom .tabs li.tabs-selected a.tabs-inner {
+    border-top: 2px solid #09b83e  !important;
+}
+.tabs-header-left .tabs li.tabs-selected a.tabs-inner {
+    border-bottom: none !important;
+    border-right: 2px solid #09b83e  !important;
+}
+.tabs-header-right .tabs li.tabs-selected a.tabs-inner {
+    border-bottom: none !important;
+    border-left: 2px solid #09b83e  !important;
+}
+.slider-handle {
+    background: #09b83e  !important;
+}
+.menu-active {
+    color: #09b83e  !important;
+}

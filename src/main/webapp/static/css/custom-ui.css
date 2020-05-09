@@ -1,0 +1,137 @@
+/*一些控件布局, 轻易不要修改原有代码，除非明确了解*/
+
+/* 全局字体样式 */
+:not(.iconfont){
+    font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","STHeitiSC-Light","Microsoft YaHei","微软雅黑",Arial,sans-serif ;
+}
+
+/*iconfont easyui 图标冲突问题*/
+.iconfont{
+    background: none;
+}
+.iconfont:before{
+    line-height: 20px;
+}
+
+/*easyui linkbutton 按钮字体图标*/
+.l-btn-icon.iconfont{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+
+/* datagrid toolbar 中 搜索框*/
+.searchInputArea {
+    /*有按钮 有搜索框*/
+    position: absolute;
+    right: 20px;
+}
+.searchInputAreaDiv{
+    /*无按钮 只有搜索框*/
+    text-align: right;
+}
+
+
+/* 表单页 按钮*/
+.formBtnsDiv{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+/* 表单页表格样式 */
+table.centerTable{
+    margin: 10px auto;
+    border: none!important;
+    box-shadow:  0px 0px 5px lightgray;
+}
+table.fullWidthTable{
+    width: 100%;
+}
+table.labelInputTable  tr>td:nth-child(odd){
+    background-color:#fafafa;
+}
+
+/* 仅 chrome webkit 内核 滚动条 样式*/
+::-webkit-scrollbar {
+    width: 4px; /*纵向滚动条*/
+    height: 6px; /*横向滚动条*/
+}
+
+::-webkit-scrollbar-track {
+    /* 滚动槽 */
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+::-webkit-scrollbar-thumb {
+    /* 滚动条滑块 */
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/*超链接去掉下划线*/
+a{
+    color:#333;
+    text-decoration:none;
+}
+a:hover{
+    text-decoration:underline;
+}
+
+
+.pure-button-primary:hover{
+    color: #fff;
+}
+/*.pure-button{
+   border-radius: 0px !important;
+}*/
+
+
+/*隐藏元素*/
+.hidCss{
+    display: none;
+}
+
+.bg{
+    background-color: #f8f9fa;
+    /*background-color: #f5f5f5;*/
+}
+
+/*修改checkbox 默认样式*/
+/*.datagrid-header-check .datagrid-cell-check*/
+div[class*='datagrid-']>input[type=checkbox] {
+    position: relative;
+    width: 15px;
+    height: 15px;
+}
+div[class*='datagrid-']>input[type=checkbox]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+    font-size: 12px;
+    background-color: #fff;
+    border:1px solid #dfdfdf;
+    border-radius: 10%;
+}
+div[class*='datagrid-']>input[type=checkbox]:checked::before {
+    color: white;
+    content: '✔';
+}
+
+
+/*datagrid 部分字体高亮显示 样式*/
+.datagrid-cell-highlight{
+    display: inline-block;
+    padding: 4px;
+    font-weight: bold;
+    border: 2px solid  #FFEB3B;
+    border-radius: 15px;
+}
