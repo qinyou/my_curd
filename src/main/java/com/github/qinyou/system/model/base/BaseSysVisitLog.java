@@ -16,7 +16,7 @@ import java.util.Date;
 @SuppressWarnings({"serial", "unchecked"})
 public abstract class BaseSysVisitLog<M extends BaseSysVisitLog<M>> extends Model<M> implements IBean {
 
-    //----------- 导出 excel 需要， 依赖 get 方法，也可考虑 model 转 bean
+    //----------- 导出 excel 需要， 依赖 get 方法，也可考虑 model 转 method
     @Excel(name = "访问人", mergeVertical = false, height = 10, width = 30)
     private String sysUser;
     @Excel(name = "访问时间", height = 10, width = 40, databaseFormat = "yyyy-MM-dd HH:mm:ss", format = "yyyy年MM月dd日 HH时mm分ss秒")

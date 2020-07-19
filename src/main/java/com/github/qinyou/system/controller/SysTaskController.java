@@ -1,6 +1,5 @@
 package com.github.qinyou.system.controller;
 
-import com.github.qinyou.AppConfig;
 import com.github.qinyou.common.annotation.RequirePermission;
 import com.github.qinyou.common.constant.Constant;
 import com.github.qinyou.common.interceptor.SearchSql;
@@ -13,7 +12,6 @@ import com.github.qinyou.system.vo.Cron4jTaskIntro;
 import com.google.common.base.Throwables;
 import com.google.common.collect.Collections2;
 import com.jfinal.aop.Before;
-import com.jfinal.kit.Prop;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
@@ -27,21 +25,21 @@ import java.util.List;
 /**
  * 定时任务
  */
-@RequirePermission("sysTask")
 @Slf4j
+@RequirePermission("sysTask")
 public class SysTaskController extends BaseController {
 
     private static void initData(List<Cron4jTaskIntro> data) {
-        String taskNames = AppConfig.configProp.get("cron4j");
+        String taskNames = PropKit.get("cron4j");
         if (StringUtils.isEmpty(taskNames)) {
             return;
         }
         String[] taskNameAry = taskNames.split(",");
         for (String taskName : taskNameAry) {
-            String cron = AppConfig.configProp.get(taskName + ".cron");
-            String className = AppConfig.configProp.get(taskName + ".class");
-            String daemon = AppConfig.configProp.get(taskName + ".daemon");
-            String enable = AppConfig.configProp.get(taskName + ".enable");
+            String cron = PropKit.get(taskName + ".cron");
+            String className = PropKit.get(taskName + ".class");
+            String daemon = PropKit.get(taskName + ".daemon");
+            String enable = PropKit.get(taskName + ".enable");
             Cron4jTaskIntro intro = new Cron4jTaskIntro();
 
             intro.setName(taskName);

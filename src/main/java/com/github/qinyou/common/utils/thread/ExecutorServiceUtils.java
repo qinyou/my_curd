@@ -17,13 +17,13 @@ import java.util.concurrent.TimeUnit;
 public class ExecutorServiceUtils {
     public static ExecutorService pool;
 
-    private static int corePoolSize = 5;
-    private static int maximumPoolSize = 10;
-    private static long keepAliveTime = 0L;   // 单位毫秒
-    private static String threadName = "my_curd-%d";
-
     static {
         log.debug("thread pool init");
+        int corePoolSize = 5;
+        int maximumPoolSize = 10;
+        long keepAliveTime = 0L;
+        String threadName = "my_curd-%d";
+
         pool = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
                 keepAliveTime, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(),
                 new ThreadFactoryBuilder().setNameFormat(threadName).setDaemon(true).build());

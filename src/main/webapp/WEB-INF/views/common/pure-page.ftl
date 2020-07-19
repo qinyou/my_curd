@@ -22,7 +22,7 @@
     <!--[if lt IE 9]>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="${ctx!}/static/plugins/easyui1.8.5/jquery.min.js"></script>
+    <script type="text/javascript" src="${ctx!}/static/plugins/easyui/jquery.min.js"></script>
     <#include "popup.ftl"/>
 </head>
 <body>

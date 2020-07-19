@@ -1,4 +1,4 @@
-<#--角色表单-->
+<#--用户配角色-->
 <#include "../common/common.ftl"/>
 <@layout>
       <table id="dg" class="easyui-datagrid"
@@ -11,7 +11,7 @@
           <tr>
               <th data-options="field:'id',checkbox:true"></th>
               <th field="roleName" width="100">名称</th>
-              <th field="roleCode" width="100">名称</th>
+              <th field="roleCode" width="120">编码</th>
               <th field="roleDesc" width="300">说明</th>
               <th field="creater" width="100" formatter="usernameFmt">添加人</th>
           </tr>

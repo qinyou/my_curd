@@ -11,7 +11,7 @@ import com.jfinal.core.Controller;
 @Before(ApiInterceptor.class)
 public class DemoController extends Controller {
     // 接口
-    @RequirePermission(value = "admin",isPermission = false)
+    @RequirePermission(value = "admin",isResource = false)
     public UserClaim index(UserClaim userClaim){
         return userClaim;
     }

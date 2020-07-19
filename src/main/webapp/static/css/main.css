@@ -1,10 +1,7 @@
-/*main.ftl 中使用的 css 样式*/
-/* -------- 顶部 导航栏 -------------- */
 .mainHeader {
     height: 52px;
     overflow: hidden;
 }
-
 .mainHeader .headerMenu {
     width: 100%;
     height: 100%;
@@ -13,12 +10,12 @@
     overflow: hidden;
     list-style-type: none;
 }
-.mainHeader li {
+.headerMenu li {
     float: left;
     height: 100%;
     line-height: 52px;
 }
-.mainHeader ul.headerMenu li a {
+.headerMenu li>a {
     display: block;
     line-height: 58px;
     padding: 0 25px;
@@ -27,31 +24,31 @@
     text-align: center;
     text-decoration: none;
 }
-.mainHeader ul.headerMenu li a:hover {
+.headerMenu li>a:hover {
     filter: alpha(opacity=90);
     background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
     background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1))
 }
-.mainHeader ul.headerMenu li a.header-title {
+.headerMenu li>a.header-title {
     width: 220px;
-    font-size:18px ;
-    font-weight: 400;
+    font-size:22px ;
+    font-weight: 800;
 }
-.mainHeader ul.headerMenu  a.header-active {
+.headerMenu  li>a.header-active {
     filter: alpha(opacity=90);
     background-image: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1));
     background-image: linear-gradient(transparent, rgba(0, 0, 0, .05) 40%, rgba(0, 0, 0, .1))
 }
-.mainHeader ul.headerMenu span.right {
+.headerMenu span.right {
     float: right;
 }
-.mainHeader  .unreadCount.hid {
+.headerMenu  .unreadCount.hid {
     display: none;
 }
-.mainHeader .pure-button {
+.headerMenu .pure-button {
     padding: 12px 8px;
 }
-.mainHeader .pure-button:hover{
+.headerMenu .pure-button:hover{
     border: none !important;
 }
 
@@ -65,26 +62,21 @@
     padding: 7px 10px;
     border: 1px solid #f5f5f5;
     border-radius: 3px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    background-color: #f5f5f5;
+    -webkit-box-shadow: inset 0 1px 1px #fff;
+    box-shadow: inset 0 1px 1px #fff;
+    background-color: #fff;
     font-weight: 500;
 }
 .sidebar input:focus{
     outline: 0;
 }
 .sidebar .panel-header, .sidebar .panel-body {
-    background-color: #fff;
+    background-color: #fafafa;
 }
-
-
-
 .content{
-    /*padding-top: 10px;*/
-    padding-left: 10px;
 }
 
-    /* -------- 中部 tab 组 -------------- */
+/* -------- 中部 tab 组 -------------- */
 /*tab iframe 两个滚动条问题*/
 #tabGroup .tabs-panels > .panel > .panel-body {
     overflow: hidden;

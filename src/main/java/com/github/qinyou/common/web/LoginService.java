@@ -3,6 +3,7 @@ package com.github.qinyou.common.web;
 import com.github.qinyou.common.utils.StringUtils;
 import com.github.qinyou.system.model.SysButton;
 import com.github.qinyou.system.model.SysMenu;
+import com.github.qinyou.system.model.SysRoleMenu;
 
 import java.util.*;
 
@@ -41,7 +42,7 @@ public class LoginService {
         // 所有菜单
         List<SysMenu> allMenuList = SysMenu.dao.findAll();
         // 用户菜单
-        List<SysMenu> userMenuList = SysMenu.dao.findByRoleIds(roleIds);
+        List<SysMenu> userMenuList = SysRoleMenu.dao.findMenusByRoleIds(roleIds);
         // 完整的用户菜单
         Set<SysMenu> chainSet = new HashSet<>();
         for (SysMenu menu : userMenuList) {

@@ -2,7 +2,7 @@ package com.github.qinyou.common.utils.jwt;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.github.qinyou.AppConfig;
+import com.jfinal.kit.PropKit;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -25,9 +25,9 @@ public class JwtUtils {
     private static final String SECRET ;              // 签名 密钥
     private static final Long EXPIRATION_TIME_VALUE ; // 过期时间 (单位为秒)
     static{
-        ISS = AppConfig.configProp.get("jwt.iss");
-        SECRET = AppConfig.configProp.get("jwt.secret");
-        EXPIRATION_TIME_VALUE = 60L * 60 * 24 * AppConfig.configProp.getInt("jwt.exp");
+        ISS = PropKit.get("jwt.iss");
+        SECRET = PropKit.get("jwt.secret");
+        EXPIRATION_TIME_VALUE = 60L * 60 * 24 * PropKit.getInt("jwt.exp");
     }
 
     /**
@@ -60,7 +60,8 @@ public class JwtUtils {
         }
         JwtBuilder builder = Jwts.builder().setPayload(payload.toJSONString())
                 .signWith(signatureAlgorithm, signingKey);
-        return builder.compact();
+
+        return "Bearer "+builder.compact();
     }
 
 
@@ -74,9 +75,12 @@ public class JwtUtils {
      * @return
      */
     public static UserClaim parseToken(String token) {
+        token = token.substring(7);
         //.setAllowedClockSkewSeconds(100) // 过期后 后 延后100s 内仍能解析
-        Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET))
-                .parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parser()
+                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET))
+                .parseClaimsJws(token)
+                .getBody();
 
         UserClaim userClaim = new UserClaim();
         userClaim.setUsername((String) claims.get("username"));
@@ -91,8 +95,6 @@ public class JwtUtils {
 
     public static void main(String[] args) {
         String token = buildToken("chuang", null, null);
-        System.out.println(token);
-
         UserClaim userClaim = parseToken(token);
         System.out.println(JSON.toJSONString(userClaim));
     }

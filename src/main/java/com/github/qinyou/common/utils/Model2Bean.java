@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Jfinal model 转 bean 工具 ，M 为 入参（Model 或 其字类)，B 为方法返回值(Bean)
- * easypoi excel 等使用, 通过调整 bean 适配 Jfinal model
+ * Jfinal model 转 method 工具 ，M 为 入参（Model 或 其字类)，B 为方法返回值(Bean)
+ * easypoi excel 等使用, 通过调整 method 适配 Jfinal model
  *
  * @author zhangchuang
  */
@@ -19,12 +19,12 @@ import java.util.Map;
 public class Model2Bean<M, B> {
 
     /**
-     * model 转 bean
+     * model 转 method
      *
      * @param model     model或 其字类
-     * @param beanClass bean class
-     * @param mapping   model 字段 到 bean 字段的映射
-     * @return bean 不为 null
+     * @param beanClass method class
+     * @param mapping   model 字段 到 method 字段的映射
+     * @return method 不为 null
      */
     public B toBean(@NotNull M model, @NotNull Class<B> beanClass, @NotNull Map<String, String> mapping) {
 
@@ -35,7 +35,7 @@ public class Model2Bean<M, B> {
             o = beanClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             log.error(e.getMessage(), e);
-            throw new RuntimeException(" bean 初始化失败");
+            throw new RuntimeException(" method 初始化失败");
         }
 
         // 字段设置值
@@ -57,9 +57,9 @@ public class Model2Bean<M, B> {
      * model list  转换为 Bean list
      *
      * @param models    model或其子类
-     * @param beanClass bean class
-     * @param mapping   model 字段到 bean 字段的映射
-     * @return bean list, 不为null,可为空数组
+     * @param beanClass method class
+     * @param mapping   model 字段到 method 字段的映射
+     * @return method list, 不为null,可为空数组
      */
     public List<B> toBeans(@NotNull List<M> models, @NotNull Class<B> beanClass, @NotNull Map<String, String> mapping) {
         List<B> list = new ArrayList<>();
@@ -75,7 +75,7 @@ public class Model2Bean<M, B> {
 
 
     /**
-     * model 转 bean,  , bean 字段为驼峰， Model为 下划线格式
+     * model 转 method,  , method 字段为驼峰， Model为 下划线格式
      *
      * @param model
      * @param beanClass
@@ -90,7 +90,7 @@ public class Model2Bean<M, B> {
             o = beanClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             log.error(e.getMessage(), e);
-            throw new RuntimeException(" bean 初始化失败");
+            throw new RuntimeException(" method 初始化失败");
         }
         Field[] fields = beanClass.getDeclaredFields();
         String fieldName;
@@ -113,7 +113,7 @@ public class Model2Bean<M, B> {
     }
 
     /**
-     * model list 转 bean list , bean 字段为驼峰， Model为 下划线格式
+     * model list 转 method list , method 字段为驼峰， Model为 下划线格式
      *
      * @param models
      * @param beanClass

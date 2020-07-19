@@ -2,7 +2,7 @@
 <#include "../common/common.ftl"/>
 <@layout>
 <form id="modelForm" method="POST" action="<#if sysDict?? >${ctx!}/sysDict/updateDictAction<#else>${ctx!}/sysDict/addDictAction</#if>">
-    <table class=" pure-table pure-table-horizontal centerTable labelInputTable">
+    <table class=" pure-table pure-table-horizontal fullWidthTable labelInputTable">
         <input id="id" name="id" type="hidden" value="${(sysDict.id)!}">
         <tbody>
         <tr>

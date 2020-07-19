@@ -9,46 +9,42 @@ top.layer.config({
 
 var popup = {
     /* 打开 iframe 弹窗*/
-    openIframe: function (title, url, width, height, skin) {
-        var index = top.layer.open({
+    openIframe: function (title, url, width, height, offset, skin) {
+        if(window.name) sessionStorage.setItem("iframeId",window.name);
+        return top.layer.open({
             skin: skin || 'layui-layer-lan',
             type: 2,
             title: title,
             maxmin: true,
             shadeClose: true,
+            offset: offset || 'auto',  // 弹窗位置
             area: [width || '80%', height || '90%'],
-            content: [url],
-            success:function (dom,i) {
-                // 也可通过 iframe 传值
-               sessionStorage.setItem("iframeId",window.name);
-            }
+            content: [url]
         });
-        return index;
     },
     /*iframe 弹窗，不能调整大小*/
     openIframeNoResize:function(title,url,width,height,autoHeight,noTitle,skin){
-        var index = top.layer.open({
+        return top.layer.open({
             skin: skin || 'layui-layer-lan',
             type: 2,
-            title: noTitle?false:title,
-            closeBtn:noTitle?0:1,
+            title: noTitle ? false : title,
+            closeBtn: noTitle ? 0 : 1,
             maxmin: false,
-            resize:false,
+            resize: false,
             shadeClose: true,
             area: [width || '80%', height || '90%'],
             content: [url],
-            success:function(dom,i){
+            success: function (dom, i) {
                 // 根据内容高度 自适应
-                if(autoHeight){
+                if (autoHeight) {
                     top.layer.iframeAuto(i);
                 }
             }
         });
-        return index;
     },
     /*页面层*/
     openDOM: function (title, content, width, height, skin) {
-        top.layer.open({
+        return top.layer.open({
             type: 1,
             skin: skin || 'layui-layer-lan',
             shadeClose: true,
@@ -83,7 +79,7 @@ var popup = {
             time: 1500,
             // offset:'t'
         };
-        if(msg.indexOf('成功')>=0){
+        if(msg.indexOf('成功')>=0 || msg.indexOf('完成')>=0){
             setting.icon=1;
         }else if(msg.indexOf('失败')>=0){
             setting.icon=2;

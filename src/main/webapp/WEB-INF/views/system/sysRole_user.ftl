@@ -1,7 +1,7 @@
 <#include "../common/common.ftl"/>
 <@layout>
 <table id="dg" class="easyui-datagrid"
-       url="${ctx!}/sysRole/queryRoleUser?search_EQ_a.sysRoleId=${roleId!}"
+       url="${ctx!}/sysRole/queryUsers?search_EQ_a.sysRoleId=${roleId!}"
        toolbar="#tb" rownumbers="true" border="false"
        fit="true"    fitColumns="true"
        striped="true"   pageSize="40" pageList="[20,40]"
@@ -12,8 +12,8 @@
         <th  width="100" field="username" formatter="usernameFmt">登录名</th>
         <th  width="100" field="realName">姓名</th>
         <th  width="100" field="job">职位</th>
-        <#--<th field="creater" width="100">操作人</th>-->
-        <th field="sysRoleId" width="50" formatter="deleteFmt">操作</th>
+        <th  width="100" field="creater">操作人</th>
+        <th  width="100" field="createTime">操作时间</th>
     </tr>
     </thead>
 </table>
@@ -26,24 +26,4 @@
     </div>
 </div>
 <script src="${ctx!}/static/js/dg-curd.js"></script>
-<script>
-    function deleteFmt(val,row){
-        return '<a href="javascript:deleteRoleUser(\''+row.sysUserId+'\',\''+row.sysRoleId+'\')"> 删除 </a>'
-    }
-
-    /* 删除 单行 */
-    function deleteRoleUser(userId,roleId) {
-        $.get('${ctx!}/sysRole/deleteUserRole?userId='+userId+"&roleId="+roleId , function (data) {
-            if(data.state=='ok'){
-                popup.msg(data.msg, function () {
-                    $('#dg').datagrid('reload');
-                });
-            }else if(data.state=='error'){
-                popup.errMsg('系统异常',data.msg);
-            }else{
-                popup.msg(data.msg);
-            }
-        }, "json").error(function(){ popup.errMsg(); });
-    }
-</script>
 </@layout>

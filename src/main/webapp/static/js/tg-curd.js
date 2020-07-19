@@ -15,6 +15,10 @@ function newModel(tgid,url,width,height) {
     popup.openIframe('新建', url,width,height);
 }
 
+function newModelEasy(url,width,height,title) {
+    popup.openIframe(title||'新建', url,width,height);
+}
+
 /**
  * 打开编辑弹窗
  * @param tgId treegrid id

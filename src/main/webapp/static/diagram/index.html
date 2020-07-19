@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body,div{
+            padding: 0;
+            margin: 0;
+        }
+        .diagram-img{
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    function handleMove(e)
+    {
+        var top= document.getElementById("diagramImg").offsetTop;
+        var left= document.getElementById("diagramImg").offsetLeft;
+        var x= e.clientX - left;
+        var y= e.clientY - top;
+        var flag = false;
+        for(var i=0;i<aryRec.length;i++){
+            var item = aryRec[i];
+            if(x>item.x && x<item.x2 && y>item.y && y<item.y2){
+                if(document.getElementById('taskId').innerHTML != item.id){
+                    console.log('打印任务信息,id: %s, name: %s',item.id,item.name)
+                    document.getElementById('taskId').innerHTML = item.id;
+                    document.getElementById('taskName').innerHTML = item.name;
+                }
+                flag =  true;
+                break;
+            }
+        }
+        if(!flag){
+            document.getElementById('taskId').innerHTML = '';
+            document.getElementById('taskName').innerHTML = '';
+        }
+        document.getElementById("info").innerHTML="Coordinates: (" + x + "," + y + ")";
+    }
+
+    function handleMoveOut()
+    {
+        document.getElementById("info").innerHTML="";
+    }
+</script>
+<div style="background-color: yellow; text-align: center">
+    <img id="diagramImg" class="diagram-img" src="diagram.png"
+         onclick="handleMove(event)"
+         onmouseout="handleMoveOut()" alt="流程图">
+</div>
+<div id="info"></div>
+<div>
+    <div id="taskId"></div>
+    <div id="taskName"></div>
+</div>
+<script>
+    const pick = (obj, arr) => arr.reduce((iter, val) => (val in obj && (iter[val] = obj[val]), iter), {});
+    let ary = [{
+        id:'DirectorAudit',
+        name:'部门负责人审批',
+        x:141,
+        y:31,
+        width:124,
+        height: 55
+    },{
+        id:'HRAudit',
+        name:'人资审批',
+        x: 435,
+        y:29,
+        width:171,
+        height:58
+    }];
+    let aryRec = [];
+    ary.forEach(item => {
+        let rec = pick(item,['id','name','x','y']);
+        rec.x2 = item.x + item.width;
+        rec.y2 = item.y + item.height;
+        aryRec.push(rec);
+    });
+    console.log(aryRec)
+</script>
+</body>
+</html>

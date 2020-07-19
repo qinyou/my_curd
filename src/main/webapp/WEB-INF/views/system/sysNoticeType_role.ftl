@@ -1,11 +1,5 @@
 <#include "../common/common.ftl"/> <@layout>
 <script type="text/javascript">
-    var winIndex;
-
-    /*打开添加角色弹窗*/
-    function openUtilsRole() {
-        winIndex = popup.openIframe('关联角色','${ctx!}/utils/role?yesBtnTxt=关联角色', '500px', '400px')
-    }
     /**
      * 保存选中的角色，被其它窗口调用
      * @param roles

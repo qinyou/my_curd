@@ -13,6 +13,7 @@ import java.io.OutputStream;
  * excel 导出, 结合 easypoi 使用
  * @author chuang
  */
+@SuppressWarnings("Duplicates")
 @Slf4j
 public class ExcelRender extends Render {
 
@@ -34,8 +35,6 @@ public class ExcelRender extends Render {
         return this;
     }
 
-
-    @SuppressWarnings("Duplicates")
     @Override
     public void render() {
         response.reset();

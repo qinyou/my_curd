@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * 渲染 xml，通过 freemarker 模板
  */
+@SuppressWarnings("Duplicates")
 public class XmlRender extends FreeMarkerRender {
     private static final String CONTENT_TYPE = "text/xml; charset=" + getEncoding();
 

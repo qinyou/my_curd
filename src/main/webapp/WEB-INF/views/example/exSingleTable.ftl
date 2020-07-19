@@ -23,10 +23,9 @@
        class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
     <a onclick="deleteModel('dg','${ctx!}/exSingleTable/deleteAction')" href="#" class="easyui-linkbutton  "
        iconCls="iconfont icon-delete" plain="true">删除</a>
-
-   <a onclick="goUploadPage('${ctx!}/utils/goUploadFilePage','${ctx!}/exSingleTable/importExcel','上传excel','导入excel')"
+    <a onclick="goUploadPage('${ctx!}/utils/goUploadFilePage','${ctx!}/exSingleTable/importExcel','上传excel','导入excel')"
       href="#" class="easyui-linkbutton"   iconCls="iconfont icon-import" plain="true">导入</a>
-   <a onclick="exportExcel('${ctx!}/exSingleTable/exportExcel','searchSpan')" href="#" class="easyui-linkbutton"
+    <a onclick="exportExcel('${ctx!}/exSingleTable/exportExcel','searchSpan')" href="#" class="easyui-linkbutton"
      iconCls="iconfont icon-export" plain="true">导出</a>
 
     <span id="searchSpan" class="searchInputArea">

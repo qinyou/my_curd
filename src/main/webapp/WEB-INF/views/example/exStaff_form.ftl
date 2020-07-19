@@ -102,7 +102,7 @@
                     <tpltd>
                         <myinput style="width: 157px;" name="exStaffEducation[number].grade"
                                  class="myui-combobox"
-                                 data-options="required:true,panelHeight:'auto',valueField:'value',textField:'label',url:'${ctx!}/sysDict/combobox?groupCode=education'">
+                                 data-options="required:true,panelHeight:'auto',valueField:'value',textField:'label',url:'${ctx!}/utils/dictList?groupCode=education'">
                     </tpltd>
                     <tpltd>
                         <myinput style="width: 157px;" name="exStaffEducation[number].startTime"
@@ -140,7 +140,7 @@
                                             data-options="required:true"></td>
                                  <td><input style="width: 157px;" name="exStaffEducation[${item_index}].grade"
                                             value="${(item.grade)!}" class="easyui-combobox"
-                                            data-options="required:true,panelHeight:'auto',valueField:'value',textField:'label',url:'${ctx!}/sysDict/combobox?groupCode=education'">
+                                            data-options="required:true,panelHeight:'auto',valueField:'value',textField:'label',url:'${ctx!}/utils/dictList?groupCode=education'">
                                  </td>
                                  <td><input style="width: 157px;" name="exStaffEducation[${item_index}].startTime"
                                             value="${(item.startTime)!}" class="easyui-datebox"
@@ -255,7 +255,7 @@
                     <tpltd>
                         <myinput style="width: 157px;" name="exStaffFamily[number].relation"
                                  class="myui-combobox"
-                                 data-options="required:true,panelHeight:'auto',valueField:'value',textField:'label',url:'${ctx!}/sysDict/combobox?groupCode=familyRelation'">
+                                 data-options="required:true,panelHeight:'auto',valueField:'value',textField:'label',url:'${ctx!}/utils/dictList?groupCode=familyRelation'">
                     </tpltd>
                     <tpltd>
                         <myinput style="width: 157px;" name="exStaffFamily[number].job" class="myui-textbox"
@@ -293,7 +293,7 @@
                                  </td>
                                  <td><input style="width: 157px;" name="exStaffFamily[${item_index}].relation"
                                             value="${(item.relation)!}" class="easyui-combobox"
-                                            data-options="required:true,panelHeight:'auto',valueField:'value',textField:'label',url:'${ctx!}/sysDict/combobox?groupCode=familyRelation'">
+                                            data-options="required:true,panelHeight:'auto',valueField:'value',textField:'label',url:'${ctx!}/utils/dictList?groupCode=familyRelation'">
                                  </td>
                                  <td><input style="width: 157px;" name="exStaffFamily[${item_index}].job"
                                             value="${(item.job)!}" class="easyui-textbox" data-options="required:true">

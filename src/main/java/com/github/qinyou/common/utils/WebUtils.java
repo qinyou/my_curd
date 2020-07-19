@@ -2,12 +2,18 @@ package com.github.qinyou.common.utils;
 
 import com.github.qinyou.system.model.SysUser;
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.Record;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 public class WebUtils {
@@ -95,5 +101,44 @@ public class WebUtils {
         }
     }
 
+    /**
+     * 用户组织机构列表
+     * @param username
+     * @return
+     */
+    public static List<Map<String,String>> userOrgs(String username){
+        List<Map<String,String>> list = new ArrayList<>();
+        String sql = "select c.id,c.orgName,c.pid from sys_user_org a, sys_user b, sys_org c where a.sysUserId = b.id and a.sysOrgId = c.id and b.username = ?";
+        List<Record> orgs = Db.find(sql,username);
+        for(Record org: orgs){
+            Map<String,String> item = new HashMap<>();
+            item.put("id",org.getStr("id"));
+            item.put("name",buildOrgName(org.getStr("orgName"),org.getStr("pid")));
+            list.add(item);
+        }
+        return list;
+    }
+
+
+    /**
+     * 机构完整名
+     * @param name 机构名
+     * @param pid  机构pid
+     * @return
+     */
+    public static String buildOrgName(String name, String pid){
+        if("0".equals(pid)){
+            return  name;
+        }else{
+            String sql = "select orgName,pid from sys_org where id = ?";
+            Record record = Db.findFirst(sql,pid);
+            if(record==null){
+                return name;
+            }else{
+                name = record.getStr("orgName")+"/"+name;
+                return buildOrgName(name,record.getStr("pid"));
+            }
+        }
+    }
 
 }

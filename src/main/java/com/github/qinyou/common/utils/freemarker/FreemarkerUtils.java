@@ -14,6 +14,7 @@ import java.util.Map;
  *
  * @author zhangchuang
  */
+@SuppressWarnings("Duplicates")
 @Slf4j
 public class FreemarkerUtils {
 
@@ -46,7 +47,6 @@ public class FreemarkerUtils {
      * @param paramMap          数据
      * @param saveFilePath      生成存放路径
      */
-    @SuppressWarnings("Duplicates")
     public static void renderToFile(String templateDirectory, String templateName, Map<String, Object> paramMap, String saveFilePath) {
         FileOutputStream fileOutputStream = null;
         OutputStreamWriter outputStreamWriter = null;

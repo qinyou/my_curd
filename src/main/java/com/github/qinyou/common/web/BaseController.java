@@ -109,10 +109,20 @@ public abstract class BaseController extends Controller {
      *
      * @param data
      */
-    protected void renderSuccess(List<Object> data) {
+    protected void renderSuccess(List<?> data) {
         Ret ret = Ret.create().setOk().setIfNotNull("data", data);
         render(new JsonRender(ret).forIE());
     }
+
+    /**
+     * 成功操作
+     * @param data
+     */
+    protected void renderSuccess(Map<String,Object> data){
+        Ret ret = Ret.create().setOk().setIfNotNull("data", data);
+        render(new JsonRender(ret).forIE());
+    }
+
 
     /**
      * 成功操作
@@ -175,7 +185,7 @@ public abstract class BaseController extends Controller {
 
 
     /**
-     * 接收 bean list
+     * 接收 method list
      *
      * @param modelClass
      * @param prefix
@@ -193,7 +203,7 @@ public abstract class BaseController extends Controller {
     }
 
     /**
-     * 获得 bean[index] 的 所有 key
+     * 获得 method[index] 的 所有 key
      *
      * @param prefix
      * @return

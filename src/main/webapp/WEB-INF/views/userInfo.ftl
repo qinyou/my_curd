@@ -36,15 +36,18 @@
     </div>
     <input type="file" id="fileElem" multiple accept="image/*" style="display:none" onchange="commonSingleFileUpload(this.files,'image/*','${ctx!}',uploadSuccess)"/>
     <div class="pure-g">
+        <div class="pure-u-1" style="padding:10px 15px 0 15px;text-align: center; ">
+            <div style="font-size: 18px; margin-bottom: 5px"> ${(sysUser.username)!}</div>
+            <#if orgs?size gt 0>
+                 <#list orgs as org>
+                     <div style="font-size: 14px;">${(org.name)!}</div>
+                 </#list>
+            </#if>
+        </div>
         <div class="pure-u-1" style="padding:10px 15px;">
             <form class="pure-form">
                 <input type="hidden" name="userId" value="${(sysUser.id)!}">
                 <input id="avatarInput" type="hidden" name="avatar" value="${(sysUser.avatar)!}">
-                <fieldset class="pure-group">
-                    <input class="pure-input-1" id="username" type="text" placeholder="登录名"
-                           value="${(sysUser.username)!}" readonly>
-                    <input class="pure-input-1" id="org" type="text" placeholder="部门" value="${(orgName)!}" readonly>
-                </fieldset>
                 <fieldset class="pure-group">
                     <input class="pure-input-1" id="realName" name="realName" type="text" placeholder="姓名"
                            value="${(sysUser.realName)!}">

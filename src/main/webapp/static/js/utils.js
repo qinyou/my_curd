@@ -45,7 +45,7 @@ function fullScreenToggleNew() {
 }
 
 function isEmpty(val){
-     if(val==null || val == undefined || $.trim(val)==''){
+     if(!val || $.trim(val)===''){
          return true;
      }
      return false;
@@ -76,7 +76,7 @@ function userInfo(username){
 }
 
 function usernameFmt(val,row) {
-    return '<a title="点击查看人员信息" href="javascript:userInfo(\''+val+'\')" >'+val+'</a>';
+    return '<a title="点击查看人员信息" class="underline" href="javascript:userInfo(\''+val+'\')" >'+val+'</a>';
 }
 
 function userListByRole(roleCode){
@@ -208,23 +208,102 @@ function highlightFmt(val){
     return '<span class="datagrid-cell-highlight">'+val+'</span>';
 }
 
+// datagrid cell
+function paddingFmt(val) {
+    return '<span class="datagrid-cell-padding">'+val?val:''+'</span>';
+}
 
+// 状态格式化
+function stateFmt(v){
+    if(v === '1'){
+        return '启用';
+    }else if(v==='0'){
+        return '<span style="color:lightgray">禁用</span>';
+    }else{
+        return '';
+    }
+}
+
+// 字体图标格式化
+function fontIconFmt(v){
+    return '<i class="'+v+'"></i>'
+}
 
 var winIndex;
 
 // 用户选择弹窗
 function openUtilsUser(singleSelect,yesBtnTxt){
-    winIndex = popup.openIframe('用户选择', ctx+"/utils/user?singleSelect="+singleSelect+"&yesBtnTxt="+yesBtnTxt,
+    winIndex = popup.openIframe('用户 选择', ctx+"/utils/user?singleSelect="+singleSelect+"&yesBtnTxt="+yesBtnTxt,
         "600px","400px");
 }
 
 // 角色选择弹窗
 function openUtilsRole(singleSelect,yesBtnTxt) {
-    winIndex = popup.openIframe('角色选择',ctx+"/utils/role?singleSelect="+singleSelect+"&yesBtnTxt="+yesBtnTxt, '500px', '400px');
+    winIndex = popup.openIframe('角色 选择',ctx+"/utils/role?singleSelect="+singleSelect+"&yesBtnTxt="+yesBtnTxt, '500px', '400px');
 }
 
+// 流程用户组 选择弹窗
+function openUtilsGroup(singleSelect,yesBtnTxt) {
+    winIndex = popup.openIframe('流程用户组 选择',ctx+"/utils/group?singleSelect="+singleSelect+"&yesBtnTxt="+yesBtnTxt, '500px', '400px');
+}
 
 // 字体图标 显示
 function dgCellIconFmt(val){
     return '<i class="'+val+'"></i>'
+}
+
+// 获取 当前 url 参数
+function getQueryVariable(variable)
+{
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i=0;i<vars.length;i++) {
+        var pair = vars[i].split("=");
+        if(pair[0] == variable){return pair[1];}
+    }
+    return(false);
+}
+
+/*文件上传逻辑通用宫嗯那个*/
+function handleUploadBtn() {
+    var file = $("#file");
+    file.after(file.clone().val(''));
+    file.remove();
+    $('#file').click();
+}
+function handleFileChange() {
+    var fileData = $("#file").prop("files")[0];
+    if(fileData === undefined){return;}
+    var formData = new FormData();
+    formData.append("file", fileData);
+    $.ajax({
+        type: "POST",
+        url: ctx+"/file/upload",
+        headers:{'X-Requested-With':'XMLHttpRequest'},
+        dataType : "json",
+        crossDomain: true,
+        processData: false,
+        contentType: false,
+        data: formData
+    }).success(function(data) {
+        if(data.state === 'ok'){
+            domAddFile(data.data);
+        }else{
+            popup.msg(data.msg);
+        }
+    }).fail(function(x,h,r) {
+        console.error(x);
+        popup.errMsg('系统异常','上传文件发生异常');
+    });
+}
+function domAddFile(data){
+    var tpl = '<div class="fileItem">'+
+        '         <input type="hidden" name="attachments" value="'+data.name+'#SEP#'+data.path+'">'+
+        '         <a target="_blank" href="'+data.uri+'">'+data.name+'</a> ' +
+        '         <a title="点击删除" onclick="domRemoveFile(this)" class="removeFile">X</a>'+
+        '</div>';
+    $('#fileList').append(tpl);
+}
+function domRemoveFile(o) {
+    $(o).parent().remove();
 }

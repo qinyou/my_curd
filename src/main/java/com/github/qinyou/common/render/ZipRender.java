@@ -16,7 +16,7 @@ import java.util.List;
  * zip render, 字符串 + 文件名 生成压缩包
  * @author chuang
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused","Duplicates"})
 @Slf4j
 public class ZipRender extends Render {
     private final static String CONTENT_TYPE = "application/x-zip-compressed;charset=" + getEncoding();
@@ -54,7 +54,6 @@ public class ZipRender extends Render {
         return this;
     }
 
-    @SuppressWarnings("Duplicates")
     @Override
     public void render() {
         response.reset();

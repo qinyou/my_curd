@@ -103,18 +103,6 @@ public abstract class BaseSysUser<M extends BaseSysUser<M>> extends Model<M> imp
         return (M) this;
     }
 
-
-    // 部门
-    public String getOrgId() {
-        return getStr("orgId");
-    }
-
-    public M setOrgId(String orgId) {
-        set("orgId", orgId);
-        return (M) this;
-    }
-
-
     // 职位
     public String getJob() {
         return getStr("job");
@@ -122,17 +110,6 @@ public abstract class BaseSysUser<M extends BaseSysUser<M>> extends Model<M> imp
 
     public M setJob(String job) {
         set("job", job);
-        return (M) this;
-    }
-
-
-    // 职位级别
-    public String getJobLevel() {
-        return getStr("jobLevel");
-    }
-
-    public M setJobLevel(String jobLevel) {
-        set("jobLevel", jobLevel);
         return (M) this;
     }
 

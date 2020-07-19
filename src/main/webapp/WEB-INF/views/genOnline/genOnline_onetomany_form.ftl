@@ -7,7 +7,7 @@
         }
     </style>
     <form id="modelForm" method="POST" action="${ctx!}/genOnline/genOneToMany" >
-        <table class=" pure-table pure-table-horizontal centerTable labelInputTable">
+        <table class=" pure-table pure-table-horizontal fullWidthTable labelInputTable">
             <tbody>
 
             <tr>

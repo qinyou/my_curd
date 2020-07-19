@@ -2,7 +2,6 @@ package com.github.qinyou.common.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.github.qinyou.common.utils.Id.IdUtils;
-import com.github.qinyou.common.utils.StringUtils;
 import com.github.qinyou.common.utils.WebUtils;
 import com.github.qinyou.system.model.SysVisitLog;
 import com.jfinal.aop.Interceptor;
@@ -32,9 +31,9 @@ public class VisitLogInterceptor implements Interceptor {
         Map<String, String[]> params = controller.getRequest().getParameterMap();
         if (params.keySet().size() > 0) {
             sysVisitLog.setParam(JSON.toJSONString(params));
-//            if (sysVisitLog.getParam().length() > 100) {
-//                sysVisitLog.setParam("超长文本参数");
-//            }
+            if (sysVisitLog.getParam().length() > 500) {
+                sysVisitLog.setParam("超长文本参数");
+            }
         }
         sysVisitLog.save();
         inv.invoke();

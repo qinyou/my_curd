@@ -849,7 +849,7 @@ legend {
 
 .pure-table {
     empty-cells: show;
-    border: 1px solid #cbcbcb
+    border: 1px solid #f1e9e9
 }
 
 .pure-table caption {
@@ -860,7 +860,7 @@ legend {
 }
 
 .pure-table td, .pure-table th {
-    border-left: 1px solid #cbcbcb;
+    border-left: 1px solid #f1e9e9;
     border-width: 0 0 0 1px;
     font-size: inherit;
     margin: 0;
@@ -888,7 +888,7 @@ legend {
 }
 
 .pure-table-bordered td {
-    border-bottom: 1px solid #cbcbcb
+    border-bottom: 1px solid #f1e9e9
 }
 
 .pure-table-bordered tbody > tr:last-child > td {
@@ -897,7 +897,7 @@ legend {
 
 .pure-table-horizontal td, .pure-table-horizontal th {
     border-width: 0 0 1px;
-    border-bottom: 1px solid #cbcbcb
+    border-bottom: 1px solid #f1e9e9
 }
 
 .pure-table-horizontal tbody > tr:last-child > td {

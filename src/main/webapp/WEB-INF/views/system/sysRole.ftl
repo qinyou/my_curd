@@ -26,8 +26,8 @@
        class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
     <a onclick="deleteModel('dg','${ctx!}/sysRole/deleteAction')" href="#" class="easyui-linkbutton  "
        iconCls="iconfont icon-delete" plain="true">删除</a>
-    <a onclick="openRoleUser()" href="#" class="easyui-linkbutton " iconCls="iconfont icon-look" plain="true">查看用户</a>
-    <a onclick="openRoleMenu()" href="#" class="easyui-linkbutton  " iconCls="iconfont icon-config" plain="true">配置权限</a>
+    <a onclick="openUsers()" href="#" class="easyui-linkbutton " iconCls="iconfont icon-look" plain="true">查看用户</a>
+    <a onclick="openResources()" href="#" class="easyui-linkbutton  " iconCls="iconfont icon-config" plain="true">配置资源</a>
     <span id="searchSpan" class="searchInputArea">
             <input name="search_LIKE_roleName" prompt="名称" class="easyui-textbox" style="width:120px; ">
             <input name="search_LIKE_roleCode" prompt="编码" class="easyui-textbox" style="width:120px; ">
@@ -41,10 +41,10 @@
     /**
      *  角色相关用户
      */
-    function openRoleUser(){
+    function openUsers(){
         var rows= $("#dg").datagrid("getSelections");
-        if (rows.length==1) {
-            popup.openIframe('相关用户','${ctx!}/sysRole/openRoleUser?id=' + rows[0].id, '800px', '500px');
+        if (rows.length===1) {
+            popup.openIframe('相关用户','${ctx!}/sysRole/users?id=' + rows[0].id, '800px', '400px');
         } else {
             popup.msg('请选择一行数据查看用户');
         }
@@ -53,10 +53,10 @@
     /**
      * 角色配置菜单
      */
-    function openRoleMenu(){
-        var row = $("#dg").datagrid("getSelected");
-        if (row!=null) {
-            popup.openIframe('配置权限', '${ctx!}/sysRole/openRolePermission?id=' +row.id,  '600px', '700px')
+    function openResources(){
+        var rows= $("#dg").datagrid("getSelections");
+        if (rows.length===1) {
+            popup.openIframe('配置资源', '${ctx!}/sysRole/resources?id=' +rows[0].id,  '600px', '700px')
         } else {
             popup.msg('请选择一行数据进行操作');
         }

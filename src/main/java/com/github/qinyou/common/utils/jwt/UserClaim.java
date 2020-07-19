@@ -1,7 +1,6 @@
 package com.github.qinyou.common.utils.jwt;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import io.jsonwebtoken.Claims;
 import lombok.Getter;
 import lombok.Setter;
 

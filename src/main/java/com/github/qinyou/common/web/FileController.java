@@ -1,11 +1,11 @@
 package com.github.qinyou.common.web;
 
-import com.github.qinyou.AppConfig;
 import com.github.qinyou.common.interceptor.PermissionInterceptor;
 import com.github.qinyou.common.utils.FileUtils;
 import com.github.qinyou.common.utils.Id.IdUtils;
 import com.jfinal.aop.Clear;
 import com.jfinal.kit.PathKit;
+import com.jfinal.kit.PropKit;
 import com.jfinal.kit.Ret;
 import com.jfinal.upload.UploadFile;
 import lombok.Data;
@@ -39,20 +39,20 @@ public class FileController extends BaseController {
     private static String filePath;
 
     static {
-        imagePath = AppConfig.configProp.get("file.imagePath");
-        imageTypeLimit = Arrays.asList(AppConfig.configProp.get("file.imageType").split(","));
+        imagePath = PropKit.get("file.imagePath");
+        imageTypeLimit = Arrays.asList(PropKit.get("file.imageType").split(","));
         limitTypes.addAll(imageTypeLimit);
 
-        mediaPath = AppConfig.configProp.get("file.mediaPath");
-        mediaTypeLimit = Arrays.asList(AppConfig.configProp.get("file.mediaType").split(","));
+        mediaPath = PropKit.get("file.mediaPath");
+        mediaTypeLimit = Arrays.asList(PropKit.get("file.mediaType").split(","));
         limitTypes.addAll(mediaTypeLimit);
 
-        officePath = AppConfig.configProp.get("file.officePath");
-        officeTypeLimit = Arrays.asList(AppConfig.configProp.get("file.officeType").split(","));
+        officePath = PropKit.get("file.officePath");
+        officeTypeLimit = Arrays.asList(PropKit.get("file.officeType").split(","));
         limitTypes.addAll(officeTypeLimit);
 
-        filePath = AppConfig.configProp.get("file.filePath");
-        fileTypeLimit = Arrays.asList(AppConfig.configProp.get("file.fileType").split(","));
+        filePath = PropKit.get("file.filePath");
+        fileTypeLimit = Arrays.asList(PropKit.get("file.fileType").split(","));
         limitTypes.addAll(fileTypeLimit);
     }
 

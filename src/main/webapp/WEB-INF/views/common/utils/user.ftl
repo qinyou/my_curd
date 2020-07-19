@@ -1,4 +1,4 @@
-<!--选择用户页面-->
+<!--选择用户弹窗-->
 <#include "../common.ftl"/>
 <@layout>
 <script type="text/javascript">
@@ -26,10 +26,10 @@
     <thead>
     <tr>
         <#if singleSelect=="false"><th data-options="field:'ID',checkbox:true"></th></#if>
-        <th field="username" width="150">用户名</th>
+        <th field="username" width="120" formatter="usernameFmt">用户名</th>
         <th field="realName" width="100">姓名</th>
-        <th field="orgName" width="200">部门</th>
         <th field="job" width="150">职位</th>
+        <th field="orgNames" width="200">部门</th>
         <th field="userStateText" width="100">账号状态</th>
     </tr>
     </thead>

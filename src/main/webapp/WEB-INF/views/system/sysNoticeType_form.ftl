@@ -6,10 +6,8 @@
         border-radius:10%;
     }
 </style>
-</head>
-<body style="padding: 10px 30px; ">
 <form id="modelForm" method="POST" action="<#if sysNoticeType?? >${ctx!}/sysNoticeType/updateAction<#else>${ctx!}/sysNoticeType/addAction</#if>" >
-    <table class=" pure-table pure-table-horizontal centerTable labelInputTable" >
+    <table class="pure-table pure-table-horizontal fullWidthTable labelInputTable" >
         <input id="id" name="id"  type="hidden" value="${(sysNoticeType.id)!}">
         <tbody>
             <tr>

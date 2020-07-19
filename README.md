@@ -1,50 +1,46 @@
-## 此仓库不再更新，新仓库地址：  https://gitee.com/code-together/my_curd
+
 ## my_curd 
 
-不够漂亮高大上，足够轻量清纯，分分钟掌控不是事，为所欲为。
+超轻量 快速开发 脚手架，没有复杂技术，没有过度封装，没有繁重依赖。  
+ :grin:  轻易掌控，为所欲为  :stuck_out_tongue_closed_eyes: 
 
-## 简介
+### 简介
 
-1. 菜单级、按钮级权限控制。 自定义注解 + 拦截器 + freemarker宏标签 设计，清晰明确，容易掌控。 
-2. 代码生成器。 单表、主从表，增删改查导入导出 功能一键生成，拦截器动态生成sql where条件。
-3. 多配色风格。保持 easyui 方便易用的前提下，美化风格，数据型应用非常合适。
-4. 系统推送通知。  websocket主动，分角色推送通知，通知存库，未读已读 。
-5. 整合activiti 实现 业务表数据 流程审批 。业务表 结合代码生成器编写少量代码，审批流已测支持 （用户任务 + 排他网关 + 监听器 + 申请表单调整）简单流转功能。  
+1. 两级权限：菜单、按钮。 自定义注解 + 拦截器 + freemarker标签 设计，清晰易掌控。  
+2. 代码生成器： 单表、主从表（一个主表，N个从表），增删改查导入导出 代码一键生成，样板代码不用写。
+3. 审批流：基于activiti5实现，申请、待办、候选、已办、表单、模型、部署、定义、实例、用户、消息推送 等 完整封装。
+4. 系统通知： websocket消息，分角色推送通知，通知存库 分未读已读 。
+5. 大量通用代码封装，开发代码量小。前台多配色，UI简洁易维护。
 
-## 部署 
+
+### 开始
    
-1. 安装 jdk8(+)，maven，mysql5.7 数据库。
-2. 创建数据库 my_curd, 将 db/my_curd.sql 导入； 创建数据库 my_curd_oa,将 my_curd_oa.sql 导入，
-修改 resoureces/config-dev.txt 中 相关 数据源连接信息。
-3. 项目根目录下 mvn clean package, 进入 target/my_curd-release/my_curd, 使用 start.bat 或 start.sh 启动项目
+1. 安装 jdk8(+)、maven、mysql5.7 。
+2. 创建数据库 my_curd, 将 db/my_curd.sql 导入, 修改 resoureces/config-dev.txt 中 数据源连接信息。
+3. 项目根目录下 mvn clean package, 进入 target/my_curd-release/my_curd, 使用 start.bat 或 start.sh 启动项目。
 4. 访问 http://localhost/dashboard, 账号 admin, 密码 123456 或 111111
 5. 更多 测试账号 进入系统查看，默认密码为 123456. 
 
-## 技术方案   
+### 选型
  
-- JFinal4.7
-- Easyui1.8.5
+- JFinal4.8
 - Activiti5.22 
 - Mysql5.7
+- easyui1.8.5
 
-## 截图    
+### 截图  
 
-#### 权限管理  
-![菜单管理](https://s2.ax1x.com/2019/11/08/MEcEkV.png) 
-![角色管理](https://s2.ax1x.com/2019/11/08/MEcnl4.png) 
-![用户管理](https://s2.ax1x.com/2019/11/08/MEcl01.png)
+1. 系统菜单
+![系统菜单](https://images.gitee.com/uploads/images/2020/0719/190203_e745eb81_743575.png "3.png")  
+2. 代码生成器 生成一对多 增删改查  
+![代码生成器 一对多](https://images.gitee.com/uploads/images/2020/0719/190251_9d8f8bed_743575.png "4.png")   
+3. 流程审批 
+![流程详情](https://images.gitee.com/uploads/images/2020/0719/190342_1e3378e4_743575.png "2.png")  
+![流程消息](https://images.gitee.com/uploads/images/2020/0719/190403_608dee0d_743575.png "5.png")  
+4. 整合 Activiti Modeler 
+![activiti modeler](https://images.gitee.com/uploads/images/2020/0719/190426_d376934b_743575.png "1.png")  
 
-#### 代码生成器   
-![代码生成器](https://s2.ax1x.com/2019/11/08/MEcFwq.png)
-![生成1对多增删改查](https://s2.ax1x.com/2019/11/08/MEW7Z9.png)
-
-####  流程 
-![流程申请](https://s2.ax1x.com/2019/11/08/MEcu6J.png) 
-![流程办理](https://s2.ax1x.com/2019/11/08/MEcZfU.png) 
-![候选任务](https://s2.ax1x.com/2019/11/08/MEcVYT.png) 
-![已办流程](https://s2.ax1x.com/2019/11/08/MEcKX9.png) 
-
-## License
+### License
 
 [Apache 2.0](https://github.com/qinyou/my_curd/blob/master/LICENSE)
 

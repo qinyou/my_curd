@@ -66,6 +66,55 @@ function deleteModel(dgid,url,title) {
     }
 }
 
+// 单个删除
+function deleteSingleModel(dgid,url,title) {
+    var realTitle = title || '删除';
+    var rows = $("#"+dgid).datagrid("getSelections");
+    if (rows.length === 1) {
+        var row = rows[0];
+        popup.openConfirm(null,3, realTitle, '您确定'+realTitle+'选中的记录吗?', function () {
+            if (url.indexOf('?')>=0){
+                url = url+'&id=' + row.id
+            }else{
+                url = url+'?id=' + row.id
+            }
+            $.post(url, function (data) {
+                if(data.state==='ok'){
+                    popup.msg(data.msg, function () {
+                        $('#'+dgid).datagrid('reload');
+                    });
+                }else if(data.state==='error'){
+                    // 异常
+                    popup.errMsg('系统异常',data.msg);
+                }else{
+                    popup.msg(data.msg);
+                }
+            }, "json").error(function(){ popup.errMsg(); });
+        });
+    } else {
+        popup.msg('请选择一行进行操作');
+    }
+}
+
+// 行上删除按钮
+function delOnRow(url, dgId, title){
+    var realTitle = title||'删除';
+    popup.openConfirm(null,3, realTitle, '您确定'+realTitle+' 本条记录吗?', function () {
+        $.post(url, function (data) {
+            if(data.state==='ok'){
+                popup.msg(data.msg, function () {
+                    $('#'+dgid).datagrid('reload');
+                });
+            }else if(data.state==='error'){
+                // 异常
+                popup.errMsg('系统异常',data.msg);
+            }else{
+                popup.msg(data.msg);
+            }
+        }, "json").error(function(){ popup.errMsg(); });
+    });
+}
+
 /**
  * datagird 过滤
  * @param dgId datagrid id
@@ -186,41 +235,4 @@ function viewModel(title,dgId,url,width,height){
     } else {
         popup.msg('请选择一行数据进行'+title);
     }
-}
-
-/**
- * 通过ID 查看多条
- * @param title 弹窗标题
- * @param dgId
- * @param url
- * @param width
- * @param height
- */
-function viewModels(title,dgId,url,width,height) {
-    var rows= $("#"+dgId).datagrid("getSelections");
-    if(rows.length===0){
-        popup.msg('请至少选择一条数据');
-        return;
-    }
-
-    var ids = [];
-    rows.forEach(function(row){
-        ids.push(row.id);
-    });
-    popup.openIframe(title, url+'?ids=' + ids, width,height);
-}
-
-/**
- * 通过完整的url 查看，可单条 可多条
- * @param title
- * @param url
- * @param width
- * @param height
- */
-function viewModelsByLink(title,url,width,height){
-    if (isEmpty(url)){
-        console.log('url 参数不可为空');
-        return;
-    }
-    popup.openIframe(title, url, width,height);
 }

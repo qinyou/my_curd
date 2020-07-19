@@ -1,9 +1,9 @@
 package com.github.qinyou.common.utils;
 
 
-import com.github.qinyou.AppConfig;
 import com.google.common.base.Strings;
 import com.jfinal.kit.AesKit;
+import com.jfinal.kit.PropKit;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
@@ -14,7 +14,16 @@ import java.util.List;
  */
 @Slf4j
 public class StringUtils {
-    private final static String AES_KEY = AppConfig.configProp.get("security.aesKey");
+
+    public static void printStartLog(){
+        String line = "------------------------------------------------------------";
+        String proName = PropKit.get("app.name", "Habit") + " is start!";
+        int length = (60 - proName.length()) / 2;
+        String out = line.substring(0, length) + proName;
+        out += line.substring(0, 60 - out.length());
+        String startLog = String.format("\n\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n", line, line, line, out, line, line, line);
+        System.out.println(startLog);
+    }
 
     /**
      * 判断字符串是 null 或者  空格
@@ -102,7 +111,7 @@ public class StringUtils {
      * @return
      */
     public static String encryptAesHex(String str) {
-        return bytesToHexString(AesKit.encrypt(str, AES_KEY));
+        return bytesToHexString(AesKit.encrypt(str, PropKit.get("app.aesKey")));
     }
 
     /**
@@ -114,7 +123,7 @@ public class StringUtils {
     public static String decryptAesHex(String str) {
         String resultStr = null;
         try {
-            resultStr = AesKit.decryptToStr(hexStringToBytes(str), AES_KEY);
+            resultStr = AesKit.decryptToStr(hexStringToBytes(str), PropKit.get("app.aesKey"));
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
@@ -162,5 +171,4 @@ public class StringUtils {
         }
         return flag;
     }
-
 }

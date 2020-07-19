@@ -1,6 +1,12 @@
-# 开发环境配置
+# 应用配置
+app.name=MY CURD
+app.devMode=true
+app.showSql=true
+app.aesKey=tFWpij4I9ZP_YIfoEwyrO8kgGhTNKJSi
+app.visitLog=true
+app.workerId=0
+app.dataCenterId=0
 
-# undertow server
 # undertow 服务配置
 undertow.devMode=true
 undertow.session.hotSwap=true
@@ -13,24 +19,12 @@ undertow.gzip.level=9
 undertow.gzip.minLength=1024
 undertow.session.timeout=1800
 
-
-# 小工具配置
-# 记录访问日志到数据库
-sys.visitLog=true
-# id 生成算法使用 (集群部署应该修改此处，均 0~31)
-id.workerId=0
-id.datacenterId=0
-# aes 加密使用
-security.aesKey=tFWpij4I9ZP_YIfoEwyrO8kgGhTNKJSi
-
-# Jwt token 使用
 # jwt token 签发人
 jwt.iss = my_curd
 # jwt 密钥
 jwt.secret = AAAABBBCCC
 # jwt 过期天数
 jwt.exp = 30
-
 
 # 文件上传下载配置
 # 上传路径
@@ -42,11 +36,11 @@ file.imageType=png,jpg,jpeg,gif,bmp
 file.mediaType=swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb,mp4
 file.officeType=doc,docx,pdf,xls,xlsx,csv,ppt,pptx,
 file.fileType=htm,html,xml,txt,zip,rar,gz,bz2
+# 上传存盘路径
 file.imagePath=upload/image
 file.mediaPath=upload/media
 file.officePath=upload/office
 file.filePath=upload/file
-
 
 # 数据源配置
 # 账号权限、主数据业务、日志 等数据源
@@ -58,16 +52,6 @@ jdbc.password=123456
 jdbc.initialSize=10
 jdbc.maxActive=40
 jdbc.minIdle=5
-# oa 数据源, [activiti 生成表、流程表单]
-oa.jdbc.dbType=mysql
-oa.jdbc.driver=com.mysql.jdbc.Driver
-oa.jdbc.url=jdbc:mysql://127.0.0.1:3306/my_curd_oa?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useInformationSchema=true&useSSL=false
-oa.jdbc.user=root
-oa.jdbc.password=123456
-oa.jdbc.initialSize=10
-oa.jdbc.maxActive=40
-oa.jdbc.minIdle=5
-
 
 # 定时任务 配置
 cron4j=testTask,delSysNotice
@@ -81,7 +65,6 @@ delSysNotice.cron=0 1 * * *
 delSysNotice.class=com.github.qinyou.system.task.DelSysNoticeTask
 delSysNotice.daemon=true
 delSysNotice.enable=true
-
 
 # redis 配置
 redis.host=localhost

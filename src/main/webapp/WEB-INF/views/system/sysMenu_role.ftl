@@ -1,8 +1,8 @@
-<#--角色相关用户-->
+<#--菜单相关角色-->
 <#include "../common/common.ftl"/>
 <@layout>
 <table id="dg" class="easyui-datagrid"
-       url="${ctx!}/sysMenu/queryMenuRole?search_EQ_a.sysMenuId=${menuId!}"
+       url="${ctx!}/sysMenu/queryRoles?search_EQ_a.sysMenuId=${menuId!}"
        toolbar="#tb" rownumbers="true" border="false"
        fit="true"    fitColumns="true"
        striped="true"   pageSize="40" pageList="[20,40]"
@@ -14,7 +14,6 @@
         <th  width="100" field="roleCode">角色编码</th>
         <th field="creater" width="100" formatter="usernameFmt">操作人</th>
         <th field="createTime" width="200">操作时间</th>
-        <th field="sysRoleId" width="50" formatter="deleteFmt">操作</th>
     </tr>
     </thead>
 </table>
@@ -27,24 +26,4 @@
     </div>
 </div>
 <script src="${ctx!}/static/js/dg-curd.js"></script>
-<script>
-    function deleteFmt(val,row){
-        return '<a href="javascript:deleteMenuRole(\''+row.sysMenuId+'\',\''+row.sysRoleId+'\')"> 删除 </a>'
-    }
-
-    /* 删除 单行 */
-    function deleteMenuRole(menuId,roleId) {
-        $.get('${ctx!}/sysMenu/deleteMenuRole?menuId='+menuId+"&roleId="+roleId , function (data) {
-            if(data.state=='ok'){
-                popup.msg(data.msg, function () {
-                    $('#dg').datagrid('reload');
-                });
-            }else if(data.state=='error'){
-                popup.errMsg('系统异常',data.msg);
-            }else{
-                popup.msg(data.msg);
-            }
-        }, "json").error(function(){ popup.errMsg(); });
-    }
-</script>
 </@layout>

@@ -2,19 +2,9 @@
 <#include "../common/common.ftl"/>
 <@layout>
 <form id="modelForm" method="POST" action="<#if sysOrg?? >${ctx!}/sysOrg/updateAction<#else>${ctx!}/sysOrg/addAction</#if>">
-    <table class=" pure-table pure-table-horizontal centerTable labelInputTable">
+    <table class=" pure-table pure-table-horizontal fullWidthTable labelInputTable">
         <input id="id" name="id" type="hidden" value="${(sysOrg.id)!}">
         <tbody>
-        <tr>
-            <td>名称：</td>
-            <td>
-                <input name="orgName" value="${(sysOrg.orgName)!}"   class="easyui-textbox"  data-options="required:true" >
-            </td>
-            <td>编码：</td>
-            <td>
-                <input name="orgCode" value="${(sysOrg.orgCode)!}"   class="easyui-textbox" data-options="required:true">
-            </td>
-        </tr>
         <tr>
             <td>父机构：</td>
             <td>
@@ -24,7 +14,16 @@
             <td>
                 <input name="sortNum" value="${(sysOrg.sortNum)!}"   class="easyui-numberbox" data-options="required:true,precision:0,min:0">
             </td>
-
+        </tr>
+        <tr>
+            <td>名称：</td>
+            <td>
+                <input name="orgName" value="${(sysOrg.orgName)!}"   class="easyui-textbox"  data-options="required:true" >
+            </td>
+            <td>代码：</td>
+            <td>
+                <input name="orgCode" value="${(sysOrg.orgCode)!}"   class="easyui-textbox">
+            </td>
         </tr>
         <tr>
             <td>地址：</td>

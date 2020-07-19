@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+        <meta content=always name=referrer>
+        <link rel="shortcut icon" href="image/favicon.ico"/>
+        <title>表单模板预览</title>
+        <link rel="stylesheet" href="css/form-tpl.css">
+        <link rel="stylesheet" href="plugins/validform/css/style.css">
+        <link rel="stylesheet" href="plugins/layer/theme/default/layer.css">
+        </head>
+        <body>
+        <div id="app">
+            <div class="formWrapper">
+                <form id="applyForm" autocomplete="off">
+                    <!-- 此处填充表单代码 -->
+                     表单
+                    <!---->
+
+                    <!--此处填充数据绑定、操作业务逻辑-->
+                    <script>
+                        // vue data
+                        function data(){
+                            return {
+                                editable: true,
+                                form: {
+
+                                }
+                            };
+                        }
+                        // vue methods
+                        function methods(){
+                            return {}
+                        }
+                    </script>
+                    <!---->
+                </form>
+                <div class="btnWrapper">
+                    <button v-if="editable" type="button" onclick="$('#applyForm').submit()" class="btn">提交</button>
+                </div>
+                <div style="padding: 10px;border:1px solid #f3f3f3 ">
+                    <div class="sub-title">表单数据</div>
+                    <pre id="formData"></pre>
+                </div>
+            </div>
+    </div>
+    <script src="plugins/validform/js/jquery-1.9.1.min.js"></script>
+    <script src="plugins/validform/js/Validform_v5.3.2_min.js"></script>
+    <script src="plugins/vue/vue.min.js"></script>
+    <script src="plugins/My97DatePicker/WdatePicker.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="plugins/layer/layer.js"></script>
+    <script src="js/popup.js"></script>
+    <script>
+        var ctx = "http://localhost";
+        var needDatePicker = true;
+    </script>
+    <script>
+        var postonce = false;
+        function handleSubmit() {
+            var check = confirm("当前提交不会发起流程，仅预览标案提交数据，是否继续？");
+            if (check) {
+                var formData = JSON.stringify(vm.form, null, 2);
+                console.log(formData);
+                $('#formData').text(formData);
+            }
+        }
+    </script>
+    <script src="js/form-tpl.js"></script>
+    </body>
+</html>

@@ -1,4 +1,4 @@
-<#--用户信息-->
+<#--用户信息弹窗-->
 <#include "../common.ftl"/>
 <@layout>
 <style>
@@ -38,11 +38,53 @@
               </td>
           </tr>
           <tr>
-              <td>姓名：</td>
+              <td style="width:80px">姓名：</td>
               <td>
                   ${(sysUser.realName)!}
               </td>
           </tr>
+          <tr>
+              <td>职位：</td>
+              <td>
+                  ${(sysUser.job)!}
+              </td>
+          </tr>
+          <#if sysUser.orgNames??>
+              <tr>
+                  <td>部门：</td>
+                  <td>
+                      <#if orgs?? && orgs?size gt 0>
+                          <#list orgs as org>
+                              <div style="font-size: 14px;">${(org.name)!}</div>
+                          </#list>
+                      </#if>
+                  </td>
+              </tr>
+          </#if>
+          <#if sysUser.roleNames??>
+              <tr>
+                  <td>角色：</td>
+                  <td>
+                      ${(sysUser.roleNames)!}
+                  </td>
+              </tr>
+          </#if>
+          <#if sysUser.email??>
+              <tr >
+                  <td>邮箱：</td>
+                  <td>
+                      ${(sysUser.email)!}
+                  </td>
+              </tr>
+          </#if>
+          <#if sysUser.phone??>
+              <tr>
+                  <td>电话：</td>
+                  <td>
+                      ${(sysUser.phone)!}
+                  </td>
+              </tr>
+          </#if>
           <tr>
               <td>性别：</td>
               <td>
@@ -50,50 +92,10 @@
                   <#if sysUser.gender=='F'>女</#if>
               </td>
           </tr>
-          <tr >
-              <td>邮箱：</td>
-              <td>
-                  ${(sysUser.email)!}
-              </td>
-          </tr>
-          <tr>
-              <td>电话：</td>
-              <td>
-                  ${(sysUser.phone)!}
-              </td>
-          </tr>
-          <#if (sysUser.orgName)??>
-          <tr>
-              <td>部门：</td>
-              <td>
-                  ${(sysUser.orgName)!}
-              </td>
-          </tr>
-          </#if>
-          <#--
-           <tr>
-               <td>用户名：</td>
-               <td >
-                   ${(sysUser.username)!}
-               </td>
-           </tr>
-           -->
-          <tr>
-              <td>职位：</td>
-              <td>
-                  ${(sysUser.job)!}
-              </td>
-          </tr>
-          <tr>
-              <td>级别：</td>
-              <td>
-                  ${(sysUser.jobLevelText)!}
-              </td>
-          </tr>
           <tr>
               <td>状态：</td>
               <td>
-                  ${(sysUser.userStateText)!}
+                  ${((sysUser.userState=='0')?string('正常','禁用'))!}
               </td>
           </tr>
           </tbody>

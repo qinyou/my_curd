@@ -4,6 +4,9 @@
 :not(.iconfont){
     font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","STHeitiSC-Light","Microsoft YaHei","微软雅黑",Arial,sans-serif ;
 }
+.secondary-text {
+    color:#757575;
+}
 
 /*iconfont easyui 图标冲突问题*/
 .iconfont{
@@ -24,13 +27,19 @@
 .searchInputArea {
     /*有按钮 有搜索框*/
     position: absolute;
-    right: 20px;
+    right: 5px;
 }
 .searchInputAreaDiv{
     /*无按钮 只有搜索框*/
-    text-align: right;
+    /*text-align: right;*/
+    text-align: left;
+    padding: 10px 20px;
 }
-
+/*空格span，用户隔开元素*/
+span.blankSep{
+    display: inline-block;
+    width: 20px;
+}
 
 /* 表单页 按钮*/
 .formBtnsDiv{
@@ -38,6 +47,29 @@
     bottom: 20px;
     right: 20px;
 }
+
+/*表单内警告文本*/
+.formWraning{
+    padding:5px;
+    margin: 10px auto;
+    font-size:12px;
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border:1px solid #faebcc;
+    border-radius: 4px;
+}
+/*表单内提示文本*/
+.formTip{
+    padding:5px;
+    margin: 10px auto;
+    font-size:12px;
+    color: #31708f;
+    background-color: #d9edf7;
+    border:1px solid #bce8f1;
+    border-radius: 4px;
+}
+
+
 /* 表单页表格样式 */
 table.centerTable{
     margin: 10px auto;
@@ -46,6 +78,7 @@ table.centerTable{
 }
 table.fullWidthTable{
     width: 100%;
+    border: none !important;
 }
 table.labelInputTable  tr>td:nth-child(odd){
     background-color:#fafafa;
@@ -80,7 +113,9 @@ a{
 a:hover{
     text-decoration:underline;
 }
-
+a.underline{
+    text-decoration:underline;
+}
 
 .pure-button-primary:hover{
     color: #fff;
@@ -96,30 +131,29 @@ a:hover{
 }
 
 .bg{
-    background-color: #f8f9fa;
+    background-color: #fafafa;
     /*background-color: #f5f5f5;*/
 }
 
-/*修改checkbox 默认样式*/
-/*.datagrid-header-check .datagrid-cell-check*/
+/*修改datagrid checkbox 默认样式*/
 div[class*='datagrid-']>input[type=checkbox] {
     position: relative;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
+    margin-top:2px;
 }
 div[class*='datagrid-']>input[type=checkbox]::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 15px;
-    height: 15px;
-    line-height: 15px;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
     text-align: center;
-    font-size: 12px;
     background-color: #fff;
     border:1px solid #dfdfdf;
-    border-radius: 10%;
+    border-radius: 15%;
 }
 div[class*='datagrid-']>input[type=checkbox]:checked::before {
     color: white;
@@ -134,4 +168,45 @@ div[class*='datagrid-']>input[type=checkbox]:checked::before {
     font-weight: bold;
     border: 2px solid  #FFEB3B;
     border-radius: 15px;
+}
+
+/*datagrid 填充 padding*/
+.datagrid-cell-padding{
+    display: inline-block;
+    padding: 10px;
+}
+
+/*媒体查询隐藏元素*/
+@media screen and (max-width: 768px) {
+    .hidden-xs{
+        display: none;
+    }
+}
+@media screen and (min-width: 768px) and (max-width:992px) {
+    .hidden-sm {
+        display: none;
+    }
+}
+@media screen and (min-width: 992px) and (max-width:1200px) {
+    .hidden-md {
+        display: none;
+    }
+}
+@media screen and (min-width: 1200px) {
+    .hidden-lg {
+        display: none;
+    }
+}
+
+
+/*文件上传样式表*/
+.fileItem{padding: 10px;margin: 0;}
+.removeFile{display: inline-block;margin-left: 50px;}
+
+/*危险操作按钮*/
+.pure-button-danger{
+    color: red !important;
+    background-color:#fff !important;
+    border:1px solid #faebcc !important;
+    border-radius: 5px !important;
 }

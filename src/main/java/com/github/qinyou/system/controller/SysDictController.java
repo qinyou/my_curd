@@ -2,8 +2,6 @@ package com.github.qinyou.system.controller;
 
 import com.github.qinyou.common.annotation.RequirePermission;
 import com.github.qinyou.common.constant.Constant;
-import com.github.qinyou.common.interceptor.ComActionInterceptor;
-import com.github.qinyou.common.interceptor.PermissionInterceptor;
 import com.github.qinyou.common.interceptor.SearchSql;
 import com.github.qinyou.common.utils.Id.IdUtils;
 import com.github.qinyou.common.utils.StringUtils;
@@ -15,7 +13,6 @@ import com.github.qinyou.system.model.SysDictGroup;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.jfinal.aop.Before;
-import com.jfinal.aop.Clear;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 
@@ -27,6 +24,7 @@ import java.util.List;
  *
  * @author zhangchuang
  */
+@SuppressWarnings("Duplicates")
 @RequirePermission("sysDict")
 public class SysDictController extends BaseController {
 
@@ -67,7 +65,6 @@ public class SysDictController extends BaseController {
     /**
      * 增加 sysDictGroup
      */
-    @SuppressWarnings("Duplicates")
     public void addGroupAction() {
         SysDictGroup sysDictGroup = getBean(SysDictGroup.class, "");
         sysDictGroup.setId(IdUtils.id());
@@ -214,13 +211,6 @@ public class SysDictController extends BaseController {
         String sql = "update sys_dict set delFlag = 'X' where id in ('" + ids + "')";
         Db.update(sql);
         renderSuccess(DELETE_SUCCESS);
-    }
-
-
-    @Clear({PermissionInterceptor.class, ComActionInterceptor.class})
-    public void combobox() {
-        String groupCode = get("groupCode", "");
-        renderJson(SysDict.dao.findListByGroupAndState(groupCode, "on"));
     }
 }
 

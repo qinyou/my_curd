@@ -1,7 +1,7 @@
 <#include "../common/common.ftl"/>
 <@layout>
 <form id="modelForm" method="POST" action="${ctx!}/genOnline/genModel" >
-    <table class=" pure-table pure-table-horizontal centerTable labelInputTable">
+    <table class=" pure-table pure-table-horizontal fullWidthTable labelInputTable">
         <input  name="tables" type="hidden" value="${(tables)!}">
         <tbody>
 

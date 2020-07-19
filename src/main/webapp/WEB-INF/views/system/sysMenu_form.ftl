@@ -2,7 +2,7 @@
 <#include "../common/common.ftl"/>
 <@layout>
 <form id="modelForm" method="POST" action="<#if sysMenu?? >${ctx!}/sysMenu/updateAction<#else>${ctx!}/sysMenu/addAction</#if>">
-    <table class=" pure-table pure-table-horizontal centerTable labelInputTable">
+    <table class=" pure-table pure-table-horizontal fullWidthTable labelInputTable">
         <input id="id" name="id" type="hidden" value="${(sysMenu.id)!}">
         <tbody>
         <tr>

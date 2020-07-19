@@ -15,14 +15,7 @@ import com.jfinal.plugin.activerecord.Page;
 public class SysRole extends BaseSysRole<SysRole> {
     public static final SysRole dao = new SysRole().dao();
 
-    /**
-     * 分页查询
-     *
-     * @param pageNumber 第几页
-     * @param pageSize   每页条数
-     * @param where      查询条件
-     * @return 分页数据
-     */
+    // 分页查询角色数据
     public Page<SysRole> page(int pageNumber, int pageSize, String where) {
         String sqlSelect = " select * ";
         String sqlExceptSelect = " from sys_role  ";

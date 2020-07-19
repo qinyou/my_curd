@@ -19,11 +19,11 @@
     </thead>
 </table>
 <div id="tb">
-    <a onclick="newModel('<#noparse>${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/newModel','800px', '500px')" href="#" class="easyui-linkbutton"
+    <a onclick="newModel('<#noparse>${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/newModel','800px', '500px')"   class="easyui-linkbutton"
        iconCls="iconfont icon-add" plain="true">新增</a>
-    <a onclick="editModel('dg','<#noparse>${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/newModel','800px', '500px')" href="#"
+    <a onclick="editModel('dg','<#noparse>${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/newModel','800px', '500px')"
        class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
-    <a onclick="deleteModel('dg','<#noparse>${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/deleteAction')" href="#" class="easyui-linkbutton  "
+    <a onclick="deleteModel('dg','<#noparse>${ctx!}</#noparse>/${(mainTableMeta.nameCamel)!}/deleteAction')" class="easyui-linkbutton  "
        iconCls="iconfont icon-delete" plain="true">删除</a>
     <span id="searchSpan" class="searchInputArea">
             <input name="search_LIKE_test" prompt="测试" class="easyui-textbox" style="width:120px; ">

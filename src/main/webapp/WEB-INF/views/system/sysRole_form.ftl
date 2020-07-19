@@ -2,7 +2,7 @@
 <#include "../common/common.ftl"/>
 <@layout>
 <form id="modelForm" method="POST" action="<#if sysRole?? >${ctx!}/sysRole/updateAction<#else>${ctx!}/sysRole/addAction</#if>">
-    <table class=" pure-table pure-table-horizontal centerTable labelInputTable">
+    <table class=" pure-table pure-table-horizontal fullWidthTable labelInputTable">
         <input id="id" name="id" type="hidden" value="${(sysRole.id)!}">
         <tbody>
         <tr>

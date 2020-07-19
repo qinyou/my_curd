@@ -15,7 +15,7 @@
         <th field="logo" align="center" width="60" formatter="logoFmt">图标</th>
         <th field="cate" width="100">分类</th>
         <th field="typeName" width="100">名称</th>
-        <th field="typeCode" width="100">编码</th>
+        <th field="typeCode" width="150">编码</th>
         <th field="untilExpiryDay" width="100">过期天数</th>
         <th field="untilDeadDay" width="100">删除天数</th>
         <#--<th field="template" width="400">消息模板(ftl)</th>-->

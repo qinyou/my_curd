@@ -13,7 +13,7 @@ import java.util.List;
  * @author ${(author)!'Generator'}
  * @since ${(since)!}
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({"serial", "Duplicates"})
 public class ${(tableMeta.nameCamelFirstUp)!} extends Base${(tableMeta.nameCamelFirstUp)!}<${(tableMeta.nameCamelFirstUp)!}> {
     public static final ${(tableMeta.nameCamelFirstUp)!} dao = new ${(tableMeta.nameCamelFirstUp)!}().dao();
 

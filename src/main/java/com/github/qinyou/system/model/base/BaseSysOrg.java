@@ -103,18 +103,6 @@ public abstract class BaseSysOrg<M extends BaseSysOrg<M>> extends Model<M> imple
         return (M) this;
     }
 
-
-    // 主管人
-    public String getDirector() {
-        return getStr("director");
-    }
-
-    public M setDirector(String director) {
-        set("director", director);
-        return (M) this;
-    }
-
-
     // 创建时间
     public Date getCreateTime() {
         return get("createTime");

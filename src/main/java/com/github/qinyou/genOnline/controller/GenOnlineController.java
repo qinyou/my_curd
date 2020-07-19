@@ -45,16 +45,7 @@ public class GenOnlineController extends BaseController {
      * @throws SQLException
      */
     public void query() throws SQLException {
-        DataSource dataSource = null;
-        try {
-            if (StringUtils.isEmpty(GeneratorConfig.dsName)) {
-                dataSource = DbKit.getConfig().getDataSource();
-            } else {
-                dataSource = DbKit.getConfig(GeneratorConfig.dsName).getDataSource();
-            }
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
+        DataSource dataSource =  DbKit.getConfig().getDataSource();
 
         if (dataSource == null) {
             renderDatagrid(new ArrayList<>());

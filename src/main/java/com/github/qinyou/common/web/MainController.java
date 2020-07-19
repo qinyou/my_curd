@@ -44,7 +44,7 @@ public class MainController extends BaseController {
 
         // 根菜单id （默认取第一个根菜单）
         setAttr("rootMenuId",get(0,rootMenus.size()>0?rootMenus.get(0).getId():""));
-
+        setAttr("orgName",getSessionAttr("orgName"));
         render("main.ftl");
     }
 
@@ -139,13 +139,12 @@ public class MainController extends BaseController {
      */
     public void userInfo() {
         SysUser sysUser = WebUtils.getSysUser(this);
-        setAttr("sysUser", sysUser);
-        SysOrg sysOrg = SysOrg.dao.findById(sysUser.getOrgId());
-        if (sysOrg != null) {
-            setAttr("orgName", sysOrg.getOrgName());
-        }
+        setAttr("sysUser", SysUser.dao.findInfoByUsername(sysUser.getUsername()));
+        List<Map<String,String>> orgs = WebUtils.userOrgs(sysUser.getUsername());
+        setAttr("orgs",orgs);
         render("userInfo.ftl");
     }
+
     public void changeUserInfo() {
         String id = getPara("userId");
         if (StringUtils.isEmpty(id)) {
@@ -200,6 +199,37 @@ public class MainController extends BaseController {
         } else {
             renderFail("信息修改失败");
         }
+    }
+
+
+    // 用户切换结构
+    public void userOrgs(){
+        String username = WebUtils.getSessionUsername(this);
+        List<Map<String,String>> orgs = WebUtils.userOrgs(username);
+        setAttr("username",username);
+        setAttr("orgs",orgs);
+        setAttr("currentOrg",getSessionAttr("orgId"));
+        render("userOrgs.ftl");
+    }
+
+    public void changeUserOrg(){
+        String orgId = get("org");
+        SysOrg sysOrg = SysOrg.dao.findById(orgId);
+        if(orgId==null){
+            renderFail("Org 参数错误");
+            return;
+        }
+        // 检验参数是否合法
+        SysUser sysUser = WebUtils.getSysUser(this);
+        String sql = "select count(1) as c from sys_user_org where sysUserId = ? and sysOrgId = ?";
+        if(Db.findFirst(sql,sysUser.getId(),orgId).getLong("c")== 0L){
+            renderFail("非法操作");
+            return;
+        }
+        String orgName = WebUtils.buildOrgName(sysOrg.getOrgName(),sysOrg.getPid());
+        setSessionAttr("orgId",orgId);
+        setSessionAttr("orgName",orgName);
+        renderSuccess("切换成功");
     }
 
 

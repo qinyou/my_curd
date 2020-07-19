@@ -1,6 +1,5 @@
 package com.github.qinyou.system.controller;
 
-import com.github.qinyou.common.web.LoginService;
 import com.github.qinyou.common.annotation.RequirePermission;
 import com.github.qinyou.common.constant.Constant;
 import com.github.qinyou.common.interceptor.SearchSql;
@@ -28,18 +27,11 @@ import java.util.*;
 @RequirePermission("sysRole")
 public class SysRoleController extends BaseController {
 
-    /**
-     * 首页
-     */
+    // 列表页
     public void index() {
         render("system/sysRole.ftl");
     }
-
-
-    /**
-     * datagrid 数据
-     */
-    @SuppressWarnings("Duplicates")
+    // 表格数据
     @Before(SearchSql.class)
     public void query() {
         int pageNumber = getAttr("pageNumber");
@@ -48,11 +40,7 @@ public class SysRoleController extends BaseController {
         Page<SysRole> sysRolePage = SysRole.dao.page(pageNumber, pageSize, where);
         renderDatagrid(sysRolePage);
     }
-
-
-    /**
-     * 新增 或 修改弹窗
-     */
+    // 新增、编辑弹窗
     public void newModel() {
         String id = getPara("id");
         if (StringUtils.notEmpty(id)) {
@@ -61,11 +49,7 @@ public class SysRoleController extends BaseController {
         }
         render("system/sysRole_form.ftl");
     }
-
-
-    /**
-     * 新增 action
-     */
+    // 新增 action
     public void addAction() {
         SysRole sysRole = getBean(SysRole.class, "");
         sysRole.setId(IdUtils.id())
@@ -77,10 +61,7 @@ public class SysRoleController extends BaseController {
             renderFail(ADD_FAIL);
         }
     }
-
-    /**
-     * 修改 action
-     */
+    // 修改 action
     public void updateAction() {
         SysRole sysRole = getBean(SysRole.class, "");
         sysRole.setUpdater(WebUtils.getSessionUsername(this))
@@ -91,11 +72,7 @@ public class SysRoleController extends BaseController {
             renderFail(UPDATE_FAIL);
         }
     }
-
-
-    /**
-     * 删除 action
-     */
+    //  删除 action
     @Before(IdsRequired.class)
     public void deleteAction() {
         String ids = getPara("ids").replaceAll(",", "','");
@@ -117,58 +94,33 @@ public class SysRoleController extends BaseController {
         renderSuccess(DELETE_SUCCESS);
     }
 
-    /**
-     * 角色相关用户
-     */
-    public void openRoleUser() {
+    // 角色相关用户页面
+    public void users() {
         setAttr("roleId", getPara("id"));
         render("system/sysRole_user.ftl");
     }
-
-    /**
-     * 角色相关用户数据
-     */
+    // 角色相关用户 页面表格数据
     @Before(SearchSql.class)
-    public void queryRoleUser() {
+    public void queryUsers() {
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
-        Page<SysUserRole> sysUserRolePage = SysUserRole.dao.pageWithUserInfo(pageNumber, pageSize, where);
+        Page<SysUserRole> sysUserRolePage = SysUserRole.dao.pageUser(pageNumber, pageSize, where);
         renderDatagrid(sysUserRolePage);
     }
 
-    /**
-     * 角色相关用户 删除
-     */
-    public void deleteUserRole() {
-        String userId = get("userId");
-        String roleId = get("roleId");
-        if (StringUtils.isEmpty(roleId) || StringUtils.isEmpty(userId)) {
-            renderFail("userId roleId 参数不可为空");
-            return;
-        }
-        SysUserRole.dao.deleteByIds(userId, roleId);
-        renderSuccess(DELETE_SUCCESS);
-    }
-
-
-    /**
-     * 角色配置权限
-     */
-    public void openRolePermission() {
+    // 角色相关资源页面
+    public void resources() {
         setAttr("roleId", getPara("id"));
-        render("system/sysRole_permission.ftl");
+        render("system/sysRole_resource.ftl");
     }
-
-    /**
-     * 角色配置权限  菜单数据
-     */
-    public void menuTreeChecked() {
-        String id = getPara("roleId");
+    // 角色相关菜单数据
+    public void queryMenus() {
+        String id = get("roleId");
         // 角色相关菜单
         List<SysRoleMenu> sysRoleMenus = SysRoleMenu.dao.findByRoleId(id);
         // 全部菜单
-        List<SysMenu> sysMenus = SysMenu.dao.findAllSort();
+        List<SysMenu> sysMenus = SysMenu.dao.findAllCSort();
         // 非叶子 菜单 id 集
         Set<String> pids = new HashSet<>();
         for (SysMenu sysMenu : sysMenus) {
@@ -181,6 +133,7 @@ public class SysRoleController extends BaseController {
             map.put("pid", sysMenu.getPid());
             map.put("text", sysMenu.getMenuName());
             map.put("iconCls", sysMenu.getIcon());
+            map.put("btnCount",sysMenu.get("btnCount"));
 
             // 非叶子折叠
 //            if(pids.contains(sysMenu.getId())){
@@ -188,7 +141,7 @@ public class SysRoleController extends BaseController {
 //            }
 
             for (SysRoleMenu sysRoleMenu : sysRoleMenus) {
-                // 中间表 有记录，且是 叶子 选中
+                // 中间表 有记录，且是 叶子     选中
                 if (Objects.equal(sysRoleMenu.getSysMenuId(), sysMenu.getId()) && !pids.contains(sysMenu.getId())) {
                     map.put("checked", true);
                     break;
@@ -198,12 +151,9 @@ public class SysRoleController extends BaseController {
         }
         renderJson(maps);
     }
-
-    /**
-     * 角色配置权限 菜单更新
-     */
+    // 更新角色 相关菜单
     @Before(Tx.class)
-    public void menuTreeUpdate() {
+    public void updateMenus() {
         String roleId = get("roleId");
         String menuIds = get("menuIds");
         if (StringUtils.isEmpty(roleId)) {
@@ -211,8 +161,18 @@ public class SysRoleController extends BaseController {
             return;
         }
         // 删除 角色原有菜单
-        String deleteSql = "delete from  sys_role_menu where sysRoleId = ?";
-        Db.update(deleteSql, roleId);
+        String sql = "delete from  sys_role_menu where sysRoleId = ?";
+        Db.update(sql, roleId);
+
+        // 防止保存 非叶子菜单（没有具体的controller)
+        menuIds = menuIds.replace(",","','");
+        sql = "select GROUP_CONCAT(id) as menuIds from sys_menu where url !='/' and id in ('"+menuIds+"')";
+        Record record = Db.findFirst(sql);
+        if(record==null || StringUtils.isEmpty(record.getStr("menuIds"))){
+            renderFail("授权失败");
+            return;
+        }
+        menuIds = record.getStr("menuIds");
 
         // 添加 角色新菜单
         if (StringUtils.notEmpty(menuIds)) {
@@ -225,15 +185,12 @@ public class SysRoleController extends BaseController {
                         .save();
             }
         }
-        renderSuccess("菜单权限操作成功");
+        renderSuccess("授权成功");
     }
-
-    /**
-     * 通过 menuId 和  roleId 查询按钮列表
-     */
-    public void buttonList(){
-      String menuId = getPara("menuId");
-      String roleId = getPara("roleId");
+    // 角色相关按钮
+    public void queryButtons(){
+      String menuId = get("menuId");
+      String roleId = get("roleId");
       if(StringUtils.isEmpty(menuId) || StringUtils.isEmpty(roleId) ){
           renderJson(new ArrayList<>());
           return;
@@ -246,15 +203,18 @@ public class SysRoleController extends BaseController {
       List<Record> btnList = Db.find(sql,roleId,menuId);
       renderJson(btnList);
     }
-
-
-    // 关联 角色按钮
-    public void buttonUpdate(){
-        String roleId = getPara("roleId");
+    // 角色 关联 按钮
+    public void updateButtons(){
+        String roleId = get("roleId");
+        String sysMenuId = get("sysMenuId");
         String[] btnItems = getParaValues("btnItem");
-
-        String deleteSql = "delete from  sys_role_button where sysRoleId = ?";
-        Db.update(deleteSql, roleId);
+        if(StringUtils.isEmpty(sysMenuId)){
+            renderFail("授权失败，菜单参数不可为空");
+            return;
+        }
+        // 删除角色  当前菜单下 按钮权限
+        String deleteSql = "delete from  sys_role_button where sysRoleId = ? and sysButtonId in (select id from sys_button where sysMenuId = ?)";
+        Db.update(deleteSql, roleId, sysMenuId);
 
         if(btnItems!=null){
             for (String buttonId : btnItems) {
@@ -265,8 +225,7 @@ public class SysRoleController extends BaseController {
                         .save();
             }
         }
-
-        renderSuccess("按钮权限操作成功");
+        renderSuccess("授权成功");
     }
 
 }

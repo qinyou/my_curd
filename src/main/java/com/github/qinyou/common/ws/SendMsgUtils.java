@@ -45,8 +45,6 @@ public class SendMsgUtils {
             });
         }
     }
-
-
     /**
      * 发送消息给部分用户
      *

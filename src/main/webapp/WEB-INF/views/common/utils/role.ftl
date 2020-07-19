@@ -1,4 +1,4 @@
-<!--选择角色页面-->
+<!--选择角色弹窗页面-->
 <#include "../common.ftl"/>
 <@layout>
 <script type="text/javascript">

@@ -2,7 +2,6 @@ package com.github.qinyou.system.controller;
 
 import com.github.qinyou.common.annotation.RequirePermission;
 import com.github.qinyou.common.constant.Constant;
-import com.github.qinyou.common.interceptor.PermissionInterceptor;
 import com.github.qinyou.common.interceptor.SearchSql;
 import com.github.qinyou.common.utils.Id.IdUtils;
 import com.github.qinyou.common.utils.StringUtils;
@@ -16,7 +15,6 @@ import com.github.qinyou.system.model.SysMenu;
 import com.github.qinyou.system.model.SysRoleButton;
 import com.github.qinyou.system.model.SysRoleMenu;
 import com.jfinal.aop.Before;
-import com.jfinal.aop.Clear;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.tx.Tx;
@@ -26,16 +24,15 @@ import java.util.*;
 /**
  * 菜单管理
  */
+@SuppressWarnings("Duplicates")
 @RequirePermission("sysMenu")
 public class SysMenuController extends BaseController {
 
+    // 列表页
     public void index() {
         render("system/sysMenu.ftl");
     }
-
-    /**
-     * treegrid 查询数据
-     */
+    // 表格数据
     public void query() {
         List<SysMenu> sysMenus = SysMenu.dao.findAllCSort();
         // easyui 字体图标
@@ -44,10 +41,7 @@ public class SysMenuController extends BaseController {
         }
         renderJson(sysMenus);
     }
-
-    /**
-     * 新增 或 修改 弹窗
-     */
+    // 新增 、修改 弹窗
     public void newModel() {
         String id = get("id");
         if (StringUtils.notEmpty(id)) {
@@ -61,11 +55,7 @@ public class SysMenuController extends BaseController {
         }
         render("system/sysMenu_form.ftl");
     }
-
-    /**
-     * 添加 action
-     */
-    @SuppressWarnings("Duplicates")
+    // 添加 action
     public void addAction() {
         SysMenu sysMenu = getBean(SysMenu.class, "");
         sysMenu.setId(IdUtils.id())
@@ -77,10 +67,7 @@ public class SysMenuController extends BaseController {
             renderFail(ADD_FAIL);
         }
     }
-
-    /**
-     * 修改 action
-     */
+    // 修改 action
     public void updateAction() {
         SysMenu sysMenu = getBean(SysMenu.class, "");
         sysMenu.setUpdater(WebUtils.getSessionUsername(this))
@@ -91,11 +78,7 @@ public class SysMenuController extends BaseController {
             renderFail(UPDATE_FAIL);
         }
     }
-
-
-    /**
-     * 删除 action
-     */
+    // 删除 action
     @Before(IdRequired.class)
     public void deleteAction() {
         String id = get("id");
@@ -109,29 +92,21 @@ public class SysMenuController extends BaseController {
             Db.update(sql);
             sql = "delete from sys_role_menu where sysMenuId in ('" + allIds + "')";
             Db.update(sql);
-
-            // 删相关按钮
             sql = "delete from sys_role_button where sysButtonId in (select id from sys_button where sysMenuId in ('" + allIds + "'))";
             Db.update(sql);
             sql = "delete from sys_button where sysMenuId in ('" + allIds + "')";
             Db.update(sql);
-
             return true;
         });
         renderSuccess(DELETE_SUCCESS);
     }
-
-
-    /**
-     * org comobTree 数据, 完整的数据
-     */
-    @Clear(PermissionInterceptor.class)
+    // 新增 、编辑页下拉框数据
     public void menuComboTree() {
         List<SysMenu> sysMenus = SysMenu.dao.findAllSort();
         Set<String> pids = new HashSet<>();
         sysMenus.forEach(item -> pids.add(item.getPid()));
-
         List<Map<String, Object>> maps = new ArrayList<>();
+
         Map<String, Object> root = new HashMap<>();
         root.put("id", "0");
         root.put("pid", "-1");
@@ -153,50 +128,35 @@ public class SysMenuController extends BaseController {
         renderJson(maps);
     }
 
-
-    /**
-     * 查看 菜单相关 角色
-     */
-    public void openMenuRole() {
+    // 通过菜单查看相关角色
+    public void roles() {
         setAttr("menuId", get("id"));
         render("system/sysMenu_role.ftl");
     }
-
-    /**
-     * 菜单相关角色数据
-     */
+    // 菜单相关角色数据
     @Before(SearchSql.class)
-    public void queryMenuRole() {
+    public void queryRoles() {
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
-        Page<SysRoleMenu> sysRoleMenuPage = SysRoleMenu.dao.pageWithRoleInfo(pageNumber, pageSize, where);
+        Page<SysRoleMenu> sysRoleMenuPage = SysRoleMenu.dao.pageRole(pageNumber, pageSize, where);
         renderDatagrid(sysRoleMenuPage);
     }
 
-    /**
-     * 菜单相关角色删除
-     */
-    public void deleteMenuRole() {
-        String menuId = get("menuId");
-        String roleId = get("roleId");
-        if (StringUtils.isEmpty(roleId) || StringUtils.isEmpty(menuId)) {
-            renderFail("menuId roleId 参数不可为空");
-            return;
-        }
-        SysRoleMenu.dao.deleteByIds(roleId, menuId);
-        renderSuccess("菜单角色删除成功");
-    }
 
-
-    /**
-     * 打开菜单配置按钮页面
-     */
-    public void openButton() {
+    // 菜单相关按钮页面
+    public void buttons() {
         setAttr("menuId", get("id"));
         render("system/sysButton.ftl");
     }
-
+    // 菜单相关按钮数据
+    public void queryButtons() {
+        String menuId = get("menuId");
+        String sql = "select * from sys_button where sysMenuId = ? ";
+        List<SysButton> sysButtons = SysButton.dao.find(sql, menuId);
+        renderDatagrid(sysButtons, sysButtons.size());
+    }
+    // 新增、编辑按钮弹窗
     public void newButtonModel() {
         String id = get("id");
         String sysMenuId;
@@ -210,20 +170,7 @@ public class SysMenuController extends BaseController {
         setAttr("sysMenuId", sysMenuId);
         render("system/sysButton_form.ftl");
     }
-
-    /**
-     * 查询菜单按钮
-     */
-    public void queryButton() {
-        String menuId = get("menuId");
-        String sql = "select * from sys_button where sysMenuId = ? ";
-        List<SysButton> sysButtons = SysButton.dao.find(sql, menuId);
-        renderDatagrid(sysButtons, sysButtons.size());
-    }
-
-    /**
-     * 新增按钮
-     */
+    // 新增按钮 action
     @Before(Tx.class)
     public void addButtonAction() {
         SysButton sysButton = getBean(SysButton.class, "")
@@ -245,10 +192,7 @@ public class SysMenuController extends BaseController {
         sysButton.save();
         renderSuccess(ADD_SUCCESS);
     }
-
-    /**
-     * 编辑按钮
-     */
+    // 编辑按钮 action
     public void updateButtonAction() {
         SysButton sysButton = getBean(SysButton.class, "");
         sysButton.setUpdater(WebUtils.getSessionUsername(this))
@@ -266,10 +210,7 @@ public class SysMenuController extends BaseController {
             renderFail(UPDATE_FAIL);
         }
     }
-
-    /**
-     * 删除按钮
-     */
+    // 删除按钮action
     @Before({Tx.class, IdsRequired.class})
     public void deleteButtonAction() {
         String sysMenuId = get("menuId");
@@ -287,30 +228,22 @@ public class SysMenuController extends BaseController {
         renderSuccess(DELETE_SUCCESS);
     }
 
-    /**
-     * 查看按钮角色
-     */
-    public void openButtonRole() {
+    // 按钮相关角色页面
+    public void buttonRoles() {
         setAttr("buttonId", get("id"));
         render("system/sysButton_role.ftl");
     }
-
-    /**
-     * 查看按钮角色数据
-     */
+    // 按钮相关角色数据
     @Before(SearchSql.class)
-    public void queryButtonRole() {
+    public void queryButtonRoles() {
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
-        Page<SysRoleButton> sysRoleMenuPage = SysRoleButton.dao.pageWithRoleInfo(pageNumber, pageSize, where);
+        Page<SysRoleButton> sysRoleMenuPage = SysRoleButton.dao.pageRole(pageNumber, pageSize, where);
         renderDatagrid(sysRoleMenuPage);
     }
-
-    /**
-     * 删除按钮角色
-     */
-    public void deleteButtonRole() {
+    //移除 按钮相关角色数据
+    public void removeButtonRole() {
         String buttonId = get("buttonId");
         String roleId = get("roleId");
         if (StringUtils.isEmpty(roleId) || StringUtils.isEmpty(buttonId)) {

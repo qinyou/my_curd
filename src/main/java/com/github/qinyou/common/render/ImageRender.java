@@ -12,12 +12,20 @@ import java.io.InputStream;
  * ImageRender
  * @author  chuang
  */
+@SuppressWarnings("Duplicates")
 @Slf4j
 public class ImageRender extends Render {
+
+    // 这两个参数不同时存在
     private InputStream in;
+    private byte[] bytes;
 
     public ImageRender inputStream(InputStream in) {
         this.in= in;
+        return this;
+    }
+    public ImageRender bytes(byte[] bytes){
+        this.bytes= bytes;
         return this;
     }
 
@@ -31,9 +39,13 @@ public class ImageRender extends Render {
         ServletOutputStream sos = null;
         try {
             sos = response.getOutputStream();
-            byte[] data = new byte[in.available()];
-            in.read(data);
-            sos.write(data);
+            if(in!=null){
+                byte[] data = new byte[in.available()];
+                in.read(data);
+                sos.write(data);
+            }else{
+                sos.write(bytes);
+            }
             sos.flush();
         } catch (Exception e) {
             log.error(e.getMessage(), e);

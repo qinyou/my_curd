@@ -65,11 +65,11 @@
         </span>
     </div>
     <script src="${ctx!}/static/js/dg-curd.js"></script>
-    <script src="${ctx!}/static/plugins/easyui1.8.5/datagrid-extend.js"></script>
+    <script src="${ctx!}/static/plugins/easyui/datagrid-extend.js"></script>
     <script>
         function urlFmt(val,row){
-            return '<a title="点击查看请求信息" href="javascript:viewModelsByLink(\'查看\',\'${ctx!}/sysVisitLog/view?id='
-                    +row.id+'\',\'700px\',\'400px\')"  >'+val+'</a>';
+            return '<a title="点击查看请求信息" href="javascript:popup.openIframeNoResize(\'查看\',\'${ctx!}/sysVisitLog/view?id='
+                    +row.id+'\',\'700px\',\'400px\',true)"  >'+val+'</a>';
         }
     </script>
 </@layout>

@@ -16,7 +16,7 @@ import java.io.IOException;
 public class WebSocketServer {
 
     // 无操作最大超时时间  1800 秒
-    private final static Integer MAX_IDLE_TIMEOUT = 1800 * 1000;
+    private final static Integer MAX_IDLE_TIMEOUT = 0;
 
     /**
      * 关闭当前会话

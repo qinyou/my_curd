@@ -21,8 +21,15 @@
                 </li>
             </#list>
             <span class="right">
+                <#if orgName??>
+                    <li>
+                         <a href="javascript:openChangeOrg()"   title="点击切换机构"  >
+                            ${orgName}
+                         </a>
+                    </li>
+                </#if>
                 <li>
-                    <a href="javascript:openUserNotice()"   title="点击查看通知"  >
+                    <a href="javascript:openUserNotice()"  title="点击查看通知"  >
                         <i class="iconfont icon-bell"></i> <span id="unreadCount" ></span>
                     </a>
                 </li>
@@ -38,8 +45,13 @@
         </ul>
     </div>
     <script>
+        var noticeIndex;
         function openUserNotice(){
-            popup.openIframeNoResize('用户通知', '${ctx!}/dashboard/userNotice', '900px', '600px');
+            popup.closeByIndex(noticeIndex);
+            noticeIndex = popup.openIframe('用户通知', '${ctx!}/dashboard/userNotice', '350px', '700px','rb');
+        }
+        function openChangeOrg(){
+            popup.openIframeNoResize('切换机构', '${ctx!}/dashboard/userOrgs', '400px', '300px');
         }
         (function(){
             function openUserInfoEdit() {
@@ -71,16 +83,14 @@
         <div style="text-align: center;padding: 10px ;">
             <input id="filterInput" type="text" placeholder="关键字, enter 检索">
         </div>
-        <div style="height: 10px;margin-bottom: 10px;" class="bg"></div>
         <ul id="permissionTree" style="margin-left:18px">
         </ul>
     </div>
 
     <#--中部主体内容-->
     <div data-options="region:'center'" border="false" class="content bg">
-        <!-- pill="true" narrow="true" plain="true" tab 可选样式-->
-        <div id="tabGroup"   pill="false"  narrow="false" plain="false" ></div>
-        <div id="tabsMenu" class="easyui-menu">
+        <div id="tabGroup"   pill="false"  narrow="false" plain="false"></div>
+        <div id="tabMenu" class="easyui-menu">
             <div data-options="name:0">刷新</div>
             <div class="menu-sep"></div>
             <div data-options="name:1">关闭</div>
@@ -136,7 +146,7 @@
                         }
                     }
                 });
-                if ($.trim(inputVal) == "" || inputVal == null || inputVal == undefined ) {
+                if (isEmpty(inputVal)) {
                     $('#tt').tree('doFilter', '');
                 } else {
                     $('#permissionTree').tree('doFilter', inputVal);
@@ -149,7 +159,7 @@
     /* 刷新 导航栏 显示的 未读消息条数*/
     function refreshCount(){
         $.get('${ctx!}/dashboard/noticeUnreadCount', function (data) {
-            if(data.unreadCount==0){
+            if(data.unreadCount===0){
                 $('#unreadCount').addClass('hidCss');
             }else{
                 $('#unreadCount').removeClass('hidCss');
@@ -182,7 +192,10 @@
             };
             ws.onmessage = function (event) {
                 console.log(event.data);
-                refreshCount();
+                /* openUserNotice(); */
+                setTimeout(function () {
+                    refreshCount();
+                },1000)
             };
         } else {
             console.log('当前浏览器 不支持 websocket')
@@ -197,8 +210,8 @@
 
         /*tab 右键菜单*/
         TabTools.contextMenuInit();
-        /*最值dom 元素 浏览器默认 右键菜单*/
-        preventDomContextMenu("tabsMenu");
+        /*阻止dom 元素 浏览器默认 右键菜单*/
+        preventDomContextMenu("tabMenu");
 
         /* websocket 通知 */
         websocketInit();

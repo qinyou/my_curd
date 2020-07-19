@@ -28,6 +28,7 @@ import java.util.List;
  * @author ${author!}
  * @since ${since!}
  */
+@SuppressWarnings("Duplicates")
 @RequirePermission("${(mainTableMeta.nameCamel)!}")
 public class ${(mainTableMeta.nameCamelFirstUp)!}Controller extends BaseController{
 

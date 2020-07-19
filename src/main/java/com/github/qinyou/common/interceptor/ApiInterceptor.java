@@ -23,6 +23,7 @@ public class ApiInterceptor implements Interceptor {
     @Override
     public void intercept(Invocation invocation) {
         Ret ret;
+
         Controller controller = invocation.getController();
         HttpServletRequest req =  controller.getRequest();
         String JWTToken = req.getHeader("Authentication");
@@ -54,16 +55,16 @@ public class ApiInterceptor implements Interceptor {
 
         // 验证用户权限
         boolean flag = true;
-        RequirePermission requirePermission = invocation.getClass().getAnnotation(RequirePermission.class);
+        RequirePermission requirePermission = controller.getClass().getAnnotation(RequirePermission.class);
         if (requirePermission != null ) {
-            flag = requirePermission.isPermission() ?
+            flag = requirePermission.isResource() ?
                     userClaim.getPermissionList().contains(requirePermission.value())
                     : userClaim.getRoleList().contains(requirePermission.value()) ;
         }
         if (flag) {
             requirePermission = invocation.getMethod().getAnnotation(RequirePermission.class);
             if (requirePermission != null) {
-                flag = requirePermission.isPermission() ?
+                flag = requirePermission.isResource() ?
                         userClaim.getPermissionList().contains(requirePermission.value())
                         : userClaim.getRoleList().contains(requirePermission.value()) ;
             }

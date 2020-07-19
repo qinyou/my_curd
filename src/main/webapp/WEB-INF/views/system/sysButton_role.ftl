@@ -1,8 +1,8 @@
-<#--角色相关用户-->
+<#--按钮相关角色-->
 <#include "../common/common.ftl"/>
 <@layout>
 <table id="dg" class="easyui-datagrid"
-       url="${ctx!}/sysMenu/queryButtonRole?search_EQ_a.sysButtonId=${buttonId!}"
+       url="${ctx!}/sysMenu/queryButtonRoles?search_EQ_a.sysButtonId=${buttonId!}"
        toolbar="#tb" rownumbers="true" border="false"
        fit="true"    fitColumns="true"
        striped="true"   pageSize="40" pageList="[20,40]"
@@ -29,12 +29,12 @@
 <script src="${ctx!}/static/js/dg-curd.js"></script>
 <script>
     function deleteFmt(val,row){
-        return '<a href="javascript:deleteMenuRole(\''+row.sysButtonId+'\',\''+row.sysRoleId+'\')"> 删除 </a>'
+        return '<a href="javascript:removeButtonRole(\''+row.sysButtonId+'\',\''+row.sysRoleId+'\')"> 删除 </a>'
     }
 
     /* 删除 单行 */
-    function deleteMenuRole(buttonId,roleId) {
-        $.get('${ctx!}/sysMenu/deleteButtonRole?buttonIdId='+buttonId+"&roleId="+roleId , function (data) {
+    function removeButtonRole(buttonId,roleId) {
+        $.get('${ctx!}/sysMenu/removeButtonRole?buttonId='+buttonId+"&roleId="+roleId , function (data) {
             if(data.state=='ok'){
                 popup.msg(data.msg, function () {
                     $('#dg').datagrid('reload');

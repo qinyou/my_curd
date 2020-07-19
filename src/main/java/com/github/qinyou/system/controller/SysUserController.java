@@ -9,6 +9,7 @@ import com.github.qinyou.common.utils.WebUtils;
 import com.github.qinyou.common.validator.IdsRequired;
 import com.github.qinyou.common.web.BaseController;
 import com.github.qinyou.system.model.SysUser;
+import com.github.qinyou.system.model.SysUserOrg;
 import com.github.qinyou.system.model.SysUserRole;
 import com.jfinal.aop.Before;
 import com.jfinal.kit.HashKit;
@@ -18,6 +19,7 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 
 import java.util.Date;
 
+@SuppressWarnings("Duplicates")
 @RequirePermission("sysUser")
 public class SysUserController extends BaseController {
     private final String DEFAULT_PWD = "123456"; // 默认密码
@@ -33,7 +35,6 @@ public class SysUserController extends BaseController {
     /**
      * datagrid 数据
      */
-    @SuppressWarnings("Duplicates")
     @Before(SearchSql.class)
     public void query() {
         int pageNumber = getAttr("pageNumber");
@@ -51,37 +52,72 @@ public class SysUserController extends BaseController {
         if (StringUtils.notEmpty(id)) {
             SysUser sysUser = SysUser.dao.findById(id);
             setAttr("sysUser", sysUser);
+
+            String sql = "select group_concat(sysOrgId) as orgIds from sys_user_org where sysUserId = ?";
+            String orgIds = SysUserOrg.dao.findFirst(sql,id).getStr("orgIds");
+            if(orgIds!=null){
+                orgIds = orgIds.replaceAll(",","','");
+                setAttr("orgIds",orgIds);
+            }
         }
         render("system/sysUser_form.ftl");
     }
 
 
     /**
-     * add
+     * add action
      */
+    @Before(Tx.class)
     public void addAction() {
         SysUser sysUser = getBean(SysUser.class, "");
+        String sql = "select count(1) as c from sys_user where username = ?";
+        if( sysUser.dao().findFirst(sql).getLong("c")>0L){
+            renderFail(ADD_FAIL+", 该用户名已存在");
+        }
         sysUser.setId(IdUtils.id()).setCreater(WebUtils.getSessionUsername(this)).setCreateTime(new Date()).setUserState("0");
         sysUser.setPassword(HashKit.sha1(DEFAULT_PWD));
-        if (sysUser.save()) {
-            renderSuccess(ADD_SUCCESS);
-        } else {
-            renderFail(ADD_FAIL);
+        sysUser.save();
+
+        String[] orgIds = getParaValues("orgIds");
+        for(String orgId : orgIds){
+            if(StringUtils.isEmpty(orgId)){
+                continue;
+            }
+            new SysUserOrg().setSysUserId(sysUser.getId()).setSysOrgId(orgId)
+                    .save();
         }
 
+        renderSuccess(ADD_SUCCESS);
     }
 
     /**
-     * update
+     * update action
      */
+    @Before(Tx.class)
     public void updateAction() {
         SysUser sysUser = getBean(SysUser.class, "");
-        sysUser.setUpdater(WebUtils.getSessionUsername(this)).setUpdateTime(new Date());
-        if (sysUser.update()) {
-            renderSuccess(UPDATE_SUCCESS);
-        } else {
+        // 防止恶意修改用户名
+        String sql = "select count(1) as c from sys_user where username = ?";
+        if(SysUser.dao.findFirst(sql,sysUser.getUsername()).getLong("c")!=1){
             renderFail(UPDATE_FAIL);
+            return;
         }
+        sysUser.setUpdater(WebUtils.getSessionUsername(this)).setUpdateTime(new Date());
+        sysUser.update();
+
+        // 更新用户组织机构
+        sql = "delete from sys_user_org where sysUserId = ?";
+        Db.delete(sql,sysUser.getId());
+        String[] orgIds = getParaValues("orgIds");
+        for(String orgId : orgIds){
+            if(StringUtils.isEmpty(orgId)){
+                continue;
+            }
+            new SysUserOrg().setSysUserId(sysUser.getId()).setSysOrgId(orgId)
+                   .save();
+        }
+
+        renderSuccess(UPDATE_SUCCESS);
     }
 
 
@@ -130,18 +166,17 @@ public class SysUserController extends BaseController {
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
-        Page<SysUserRole> sysUserRolePage = SysUserRole.dao.page(pageNumber, pageSize, where);
+        Page<SysUserRole> sysUserRolePage = SysUserRole.dao.pageRole(pageNumber, pageSize, where);
         renderDatagrid(sysUserRolePage);
     }
 
     /**
      * 用户改角色保存
      */
-    @SuppressWarnings("Duplicates")
     @Before(Tx.class)
     public void addUserRoleAction() {
-        String userId = getPara("userId");
-        String roleIds = getPara("roleIds");
+        String userId = get("userId");
+        String roleIds = get("roleIds");
         if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(roleIds)) {
             renderFail("userId roleIds 参数不可为空.");
             return;
@@ -165,8 +200,8 @@ public class SysUserController extends BaseController {
      */
     @Before(Tx.class)
     public void deleteUserRoleAction() {
-        String userId = getPara("userId");
-        String roleIds = getPara("roleIds");
+        String userId = get("userId");
+        String roleIds = get("roleIds");
         if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(roleIds)) {
             renderFail("userId roleIds 参数不可为空.");
             return;
@@ -177,6 +212,4 @@ public class SysUserController extends BaseController {
         }
         renderSuccess(DELETE_SUCCESS);
     }
-
-
 }

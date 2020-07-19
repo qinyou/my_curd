@@ -19,11 +19,11 @@
     </thead>
 </table>
 <div id="tb">
-    <a onclick="newModel('<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/newModel', '500px', '400px')" href="#" class="easyui-linkbutton"
+    <a onclick="newModel('<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/newModel', '500px', '400px')"  class="easyui-linkbutton"
        iconCls="iconfont icon-add" plain="true">新增</a>
-    <a onclick="editModel('dg','<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/newModel', '500px', '400px')" href="#"
+    <a onclick="editModel('dg','<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/newModel', '500px', '400px')"
        class="easyui-linkbutton" iconCls="iconfont icon-edit" plain="true">编辑</a>
-    <a onclick="deleteModel('dg','<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/deleteAction')" href="#" class="easyui-linkbutton  "
+    <a onclick="deleteModel('dg','<#noparse>${ctx!}</#noparse>/${(tableMeta.nameCamel)!}/deleteAction')"  class="easyui-linkbutton  "
        iconCls="iconfont icon-delete" plain="true">删除</a>
 
 <#if hasExcel>

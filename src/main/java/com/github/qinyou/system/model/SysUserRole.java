@@ -6,6 +6,8 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.jfinal.plugin.activerecord.Record;
 
+import java.util.List;
+
 /**
  * Generated model
  * DB: sys_user_role  用户角色中间表
@@ -17,15 +19,8 @@ import com.jfinal.plugin.activerecord.Record;
 public class SysUserRole extends BaseSysUserRole<SysUserRole> {
     public static final SysUserRole dao = new SysUserRole().dao();
 
-    /**
-     * 分页查询
-     *
-     * @param pageNumber 第几页
-     * @param pageSize   每页条数
-     * @param where      查询条件
-     * @return 分页数据
-     */
-    public Page<SysUserRole> page(int pageNumber, int pageSize, String where) {
+    // 通过中间表 分页查询角色信息
+    public Page<SysUserRole> pageRole(int pageNumber, int pageSize, String where) {
         String sqlSelect = " select a.sysRoleId,a.sysUserId,b.roleName, b.roleCode, b.roleDesc, a.creater,a.createTime ";
         String sqlExceptSelect = " from sys_user_role a, sys_role b  where a.sysRoleId = b.id ";
         if (StringUtils.notEmpty(where)) {
@@ -35,17 +30,10 @@ public class SysUserRole extends BaseSysUserRole<SysUserRole> {
         return this.paginate(pageNumber, pageSize, sqlSelect, sqlExceptSelect);
     }
 
-    /**
-     * 分页查询, 用户数据
-     *
-     * @param pageNumber
-     * @param pageSize
-     * @param where
-     * @return
-     */
-    public Page<SysUserRole> pageWithUserInfo(int pageNumber, int pageSize, String where) {
-        String sqlSelect = " select a.sysRoleId,a.sysUserId,a.creater,a.createTime, b.username,b.realName,b.job ";
-        String sqlExceptSelect = " from sys_user_role a, sys_user b  where a.sysUserId = b.id ";
+    // 通过中间表 分页查询用户数据
+    public Page<SysUserRole> pageUser(int pageNumber, int pageSize, String where) {
+        String sqlSelect = " select a.sysRoleId,a.sysUserId,a.creater,a.createTime, b.username,b.realName,b.job, b.userState ";
+        String sqlExceptSelect = " from sys_user_role a, sys_user b, sys_role c  where a.sysUserId = b.id and a.sysRoleId = c.id and b.delFlag is null ";
         if (StringUtils.notEmpty(where)) {
             sqlExceptSelect += " and " + where;
         }
@@ -78,5 +66,17 @@ public class SysUserRole extends BaseSysUserRole<SysUserRole> {
                 "  where a.id = b.sysUserId and b.sysRoleId = c.id  and a.id = ? ";
         Record record = Db.findFirst(sql, userId);
         return record.getStr("roleCodes");
+    }
+
+    /**
+     * 通过用户名查询用户角色
+     * @param username
+     * @return
+     */
+    public List<Record> findRolesByUsername(String username){
+        String sql = "select roleName,roleCode from sys_role a, sys_user_role b, sys_user c " +
+                " where a.id = b.sysRoleId  and b.sysUserId = c.id and c.username =? order by a.sortNum";
+        List<Record> roles = Db.find(sql,username);
+        return roles;
     }
 }

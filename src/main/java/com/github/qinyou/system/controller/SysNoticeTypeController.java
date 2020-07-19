@@ -17,6 +17,7 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 
 import java.util.Date;
 
+@SuppressWarnings("Duplicates")
 @RequirePermission("sysNoticeType")
 public class SysNoticeTypeController extends BaseController {
     public void index() {
@@ -42,7 +43,6 @@ public class SysNoticeTypeController extends BaseController {
         render("system/sysNoticeType_form.ftl");
     }
 
-    @SuppressWarnings("Duplicates")
     public void addAction() {
         SysNoticeType sysNoticeType = getBean(SysNoticeType.class, "");
         sysNoticeType.setId(IdUtils.id());

@@ -19,10 +19,8 @@ public class SearchSql implements Interceptor {
     public void intercept(Invocation ai) {
         Controller c = ai.getController();
 
-        // 查询字段前缀
-        String prefix = "search_";
         // 获得 查询 参数
-        Map<String, Object> searchParams = getParametersStartingWith(c.getRequest(), prefix);
+        Map<String, Object> searchParams = getParametersStartingWith(c.getRequest(), Constant.SEARCH_PREFIX);
 
         // 获得 查询 所有的 查询 filter
         Map<String, SearchFilter> filters = SearchFilter.parse(searchParams);
@@ -31,8 +29,8 @@ public class SearchSql implements Interceptor {
         String whereSql = buildFilter(filters.values());
         c.setAttr(Constant.SEARCH_SQL, whereSql);
 
-        int pageNumber = c.getParaToInt("page", 1);
-        int pageSize = c.getParaToInt("rows", 1);
+        int pageNumber = c.getInt("page", 1);
+        int pageSize = c.getInt("rows", 1);
 
         //分页参数, 兼容 bootstrap 分页 和 easyui grid 分页
 //        int pageNumber;
@@ -140,12 +138,13 @@ public class SearchSql implements Interceptor {
                         sb.append(" in ('").append(filter.value.toString().replaceAll(",", "','")).append("')");
                         break;
                     case IS:
-                        // is null
-                        sb.append("  is null ");
-                        break;
-                    case ISNOT:
-                        // not is null
-                        sb.append("  is not null ");
+                        if("1".equals(filter.value)){
+                            // 为1 代表 不为 null
+                            sb.append(" is not null ");
+                        }else {
+                            // 非1 代表为 null
+                            sb.append(" is  null ");
+                        }
                         break;
                 }
             }
@@ -157,13 +156,13 @@ public class SearchSql implements Interceptor {
 class SearchFilter {
 
     // 查询字段名
-    public final String fieldName;
+    final String fieldName;
     // 查询字段值
-    public final Object value;
+    final Object value;
     // 查询条件
-    public final Operator operator;
+    final Operator operator;
 
-    public SearchFilter(String fieldName, Operator operator, Object value) {
+    SearchFilter(String fieldName, Operator operator, Object value) {
         this.fieldName = fieldName;
         this.value = value;
         this.operator = operator;
@@ -184,8 +183,7 @@ class SearchFilter {
             }
 
             // 拆分operator与field
-
-            String[] names = key.split("_");
+            String[] names = key.split("_",2);  // 分成两段
             if (names.length < 2) {
                 throw new IllegalArgumentException(key + " is not a valid search filter name");
             }

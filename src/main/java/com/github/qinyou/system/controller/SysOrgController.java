@@ -10,19 +10,23 @@ import com.github.qinyou.common.utils.WebUtils;
 import com.github.qinyou.common.validator.IdRequired;
 import com.github.qinyou.common.web.BaseController;
 import com.github.qinyou.system.model.SysOrg;
-import com.github.qinyou.system.model.SysUser;
+import com.github.qinyou.system.model.SysUserOrg;
 import com.google.common.base.Objects;
 import com.jfinal.aop.Before;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 组织机构管理
  *
  * @author zhangchuang
  */
+@SuppressWarnings("Duplicates")
 @RequirePermission("sysOrg")
 public class SysOrgController extends BaseController {
 
@@ -33,7 +37,6 @@ public class SysOrgController extends BaseController {
     /**
      * treegrid 查询数据
      */
-    @SuppressWarnings("Duplicates")
     public void query() {
         List<SysOrg> sysOrgs = SysOrg.dao.findAllSort();
         Set<String> pids = new HashSet<>();
@@ -41,6 +44,7 @@ public class SysOrgController extends BaseController {
 
         for (SysOrg sysOrg : sysOrgs) {
             sysOrg.put("iconCls", "iconfont icon-org-tree");
+            // 折叠 非根 的 分叶子节点
             if (!Objects.equal(sysOrg.getPid(), "0") && pids.contains(sysOrg.getId())) {
                 sysOrg.put("state", "closed");
             }
@@ -68,7 +72,6 @@ public class SysOrgController extends BaseController {
     /**
      * 添加 action
      */
-    @SuppressWarnings("Duplicates")
     public void addAction() {
         SysOrg sysOrg = getBean(SysOrg.class, "");
         sysOrg.setId(IdUtils.id())
@@ -109,11 +112,11 @@ public class SysOrgController extends BaseController {
                 return true;
             }
             sonIds = sonIds.replaceAll(",", "','");
-            // 删除机构
+
             String sql = "delete from sys_org where id in ('" + sonIds + "')";
             Db.update(sql);
-            // 相关 人员 机构字段 置空
-            sql = "update sys_user set orgId = null where orgId  in ('" + sonIds + "')";
+
+            sql = "delete from sys_user_org where sysOrgId in ('" + sonIds + "')";
             Db.update(sql);
             return true;
         });
@@ -145,9 +148,9 @@ public class SysOrgController extends BaseController {
                 } else {
                     sonIds = "unknow";  // 查不到的
                 }
-                whereSeg = " a.orgId in ('" + sonIds + "')";
+                whereSeg = " b.sysOrgId in ('" + sonIds + "')";
             } else {
-                whereSeg = " a.orgId ='" + orgId + "' ";
+                whereSeg = " b.sysOrgId ='" + orgId + "' ";
             }
             if (StringUtils.isEmpty(where)) {
                 where += whereSeg;
@@ -155,9 +158,8 @@ public class SysOrgController extends BaseController {
                 where += (" and " + whereSeg);
             }
         }
-
-        Page<SysUser> sysUserPage = SysUser.dao.page(pageNumber, pageSize, where);
-        renderDatagrid(sysUserPage);
+        Page<SysUserOrg> page = SysUserOrg.dao.pageUser(pageNumber,pageSize,where);
+        renderDatagrid(page);
     }
 
 }

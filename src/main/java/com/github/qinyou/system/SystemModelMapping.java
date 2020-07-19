@@ -30,6 +30,8 @@ public class SystemModelMapping {
 
         // 组织机构表
         arp.addMapping("sys_org", "id", SysOrg.class);
+        // 用户组织机构中间表
+        arp.addMapping("sys_user_org", "sysUserId,sysOrgId", SysUserOrg.class);
         // 字典表
         arp.addMapping("sys_dict", "id", SysDict.class);
         // 字典分组表

@@ -1,4 +1,4 @@
-<#--机构信息-->
+<#--机构信息弹窗-->
 <#include "../common.ftl"/>
 <@layout>
 <style>
@@ -20,12 +20,14 @@
               </td>
           </tr>
 
+          <#if sysOrg.orgCode?? >
           <tr >
               <td>编码：</td>
               <td>
                   ${(sysOrg.orgCode)!}
               </td>
           </tr>
+          </#if>
 
           <tr>
               <td>序号：</td>
@@ -33,12 +35,16 @@
                   ${(sysOrg.sortNum)!}
               </td>
           </tr>
+
+         <#if sysOrg.address?? >
           <tr>
               <td>地址：</td>
               <td>
                   ${(sysOrg.address)!}
               </td>
           </tr>
+         </#if>
+
           <#if (sysOrg.mark)??>
           <tr>
               <td>备注：</td>

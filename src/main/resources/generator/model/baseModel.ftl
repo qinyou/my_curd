@@ -15,7 +15,7 @@ import ${(necessaryImport)!};
  * @author ${(author)!'Generator'}
  * @since ${(since)!}
  */
-@SuppressWarnings({"serial", "unchecked"})
+@SuppressWarnings({"serial", "unchecked", "Duplicates"})
 public abstract class Base${(tableMeta.nameCamelFirstUp)!}<M extends Base${(tableMeta.nameCamelFirstUp)!}<M>> extends Model<M> implements IBean {
  <#if hasExcel>// --- 导出导出excel 所需-----
 <#if (tableMeta.columnMetas)??>

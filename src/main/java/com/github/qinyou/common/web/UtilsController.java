@@ -1,13 +1,12 @@
 package com.github.qinyou.common.web;
 
 import com.github.qinyou.common.constant.Constant;
+import com.github.qinyou.common.interceptor.ComActionInterceptor;
 import com.github.qinyou.common.interceptor.PermissionInterceptor;
 import com.github.qinyou.common.interceptor.SearchSql;
 import com.github.qinyou.common.utils.StringUtils;
-import com.github.qinyou.system.model.SysOrg;
-import com.github.qinyou.system.model.SysRole;
-import com.github.qinyou.system.model.SysUser;
-import com.github.qinyou.system.model.SysUserRole;
+import com.github.qinyou.common.utils.WebUtils;
+import com.github.qinyou.system.model.*;
 import com.google.common.base.Objects;
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
@@ -22,17 +21,12 @@ import java.util.*;
 @Clear(PermissionInterceptor.class)
 public class UtilsController extends BaseController {
 
-    /**
-     * 生成 图像验证码
-     */
+    // 图像验证码
     public void captcha() {
         renderCaptcha();
     }
 
-
-    /**
-     * 生成 二维码
-     */
+    // 二维码
     public void qrcode() {
         String content = getPara("txt", "my_curd very great");
         Integer width = getParaToInt("width", 200);
@@ -40,24 +34,43 @@ public class UtilsController extends BaseController {
         renderQrCode(content, width, height);
     }
 
-
-    /**
-     * 系统用户信息
-     */
-    public void userInfo() {
-        String username = getPara("username");
-        if (StringUtils.notEmpty(username)) {
-            SysUser sysUser = SysUser.dao.findInfoByUsername(username);
-            setAttr("sysUser", sysUser);
-        }
-        setAttr("username", username);
-
-        render("common/utils/userInfo.ftl");
+    // 字典列表
+    @Clear(ComActionInterceptor.class)
+    public void dictList() {
+        String groupCode = get("groupCode", "");
+        renderJson(SysDict.dao.findListByGroupAndState(groupCode, "on"));
     }
 
     /**
-     * 组织机构信息
+     * 跳转到上传文件页面, 文件excel导入等 使用
      */
+    public void goUploadFilePage() {
+        String uploadUrl = get("uploadUrl");
+        String label = get("label");
+        if (StringUtils.isEmpty(uploadUrl)) {
+            setAttr("msg", "uploadUrl参数不可为空");
+            render("common/card.ftl");
+            return;
+        }
+        setAttr("uploadUrl", uploadUrl);
+        setAttr("label", label);
+        render("common/utils/uploadFile.ftl");
+    }
+
+    // 用户信息弹窗
+    public void userInfo() {
+        String username = get("username");
+        if (StringUtils.notEmpty(username)) {
+            SysUser sysUser = SysUser.dao.findInfoByUsername(username);
+            setAttr("sysUser", sysUser);
+            List<Map<String,String>> orgs = WebUtils.userOrgs(username);
+            setAttr("orgs",orgs);
+        }
+        setAttr("username", username);
+        render("common/utils/userInfo.ftl");
+    }
+
+    // 机构弹窗
     public void orgInfo() {
         String orgId = getPara("id");
         if (StringUtils.notEmpty(orgId)) {
@@ -68,9 +81,7 @@ public class UtilsController extends BaseController {
         render("common/utils/orgInfo.ftl");
     }
 
-    /**
-     * 组织机构 选择框 comboTree
-     */
+    // 组织机构 选择框 comboTree
     public void orgComboTree() {
         Boolean withRoot = getParaToBoolean("withRoot", true);
         List<SysOrg> sysOrgs = SysOrg.dao.findAll();
@@ -102,15 +113,11 @@ public class UtilsController extends BaseController {
         renderJson(maps);
     }
 
-    /**
-     * 组织机构 tree 数据
-     */
-    @SuppressWarnings("Duplicates")
+    // 组织机构 tree 数据
     public void orgTreeData() {
         List<SysOrg> sysOrgs = SysOrg.dao.findAllSort();
         Set<String> pids = new HashSet<>();
         sysOrgs.forEach(item -> pids.add(item.getPid()));
-
         for (SysOrg sysOrg : sysOrgs) {
             sysOrg.put("iconCls", "iconfont icon-org-tree");
             if (!Objects.equal(sysOrg.getPid(), "0") && pids.contains(sysOrg.getId())) {
@@ -120,20 +127,13 @@ public class UtilsController extends BaseController {
         renderJson(sysOrgs);
     }
 
-
-    /**
-     * 角色选择
-     */
+    // 弹窗 角色选择
     public void role() {
         String singleSelect = getPara("singleSelect", "false");
         setAttr("singleSelect", singleSelect);
         setAttr("yesBtnTxt", getPara("yesBtnTxt", "添加角色"));
         render("common/utils/role.ftl");
     }
-
-    /**
-     * 角色选择 数据
-     */
     @Before(SearchSql.class)
     public void queryRole() {
         int pageNumber = getAttr("pageNumber");
@@ -143,19 +143,13 @@ public class UtilsController extends BaseController {
         renderDatagrid(sysRolePage);
     }
 
-    /**
-     * 用户选择
-     */
+    // 弹窗选择用户
     public void user() {
         String singleSelect = getPara("singleSelect", "false");
         setAttr("singleSelect", singleSelect);
         setAttr("yesBtnTxt", getPara("yesBtnTxt", "添加用户"));
         render("common/utils/user.ftl");
     }
-
-    /**
-     * 用户选择 数据
-     */
     @Before(SearchSql.class)
     public void queryUser() {
         int pageNumber = getAttr("pageNumber");
@@ -192,25 +186,7 @@ public class UtilsController extends BaseController {
         int pageNumber = getAttr("pageNumber");
         int pageSize = getAttr("pageSize");
         String where = getAttr(Constant.SEARCH_SQL);
-        Page<SysUser> page = SysUser.dao.pageUserByRole(pageNumber,pageSize,where);
+        Page<SysUserRole> page = SysUserRole.dao.pageUser(pageNumber,pageSize,where);
         renderDatagrid(page);
-    }
-
-
-
-    /**
-     * 跳转到上传文件页面, 文件excel导入等 使用
-     */
-    public void goUploadFilePage() {
-        String uploadUrl = getPara("uploadUrl");
-        String label = getPara("label");
-        if (StringUtils.isEmpty(uploadUrl)) {
-            setAttr("msg", "uploadUrl参数不可为空");
-            render("common/card.ftl");
-            return;
-        }
-        setAttr("uploadUrl", uploadUrl);
-        setAttr("label", label);
-        render("common/utils/uploadFile.ftl");
     }
 }

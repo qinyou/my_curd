@@ -36,6 +36,7 @@ import java.util.List;
  * @author ${author!}
  * @since ${(since)!}
  */
+@SuppressWarnings("Duplicates")
 <#if hasExcel>@Slf4j</#if>
 @RequirePermission("${(tableMeta.nameCamel)!}")
 public class ${(tableMeta.nameCamelFirstUp)!}Controller extends BaseController{

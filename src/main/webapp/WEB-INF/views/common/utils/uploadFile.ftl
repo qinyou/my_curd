@@ -1,3 +1,4 @@
+<!--通用上传文件页面-->
 <#include "../common.ftl"/><@layout>
 <form id="modelForm" method="POST" enctype="multipart/form-data"  action="${uploadUrl}" >
     <table class="pure-table pure-table-horizontal centerTable labelInputTable" style="width: 95%; margin: 40px auto;">
