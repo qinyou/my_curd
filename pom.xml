@@ -41,7 +41,7 @@
         <google-guava.version>27.1-jre</google-guava.version>
         <jodd-time.version>2.10.1</jodd-time.version>
         <easypoi.version>4.0.0</easypoi.version>
-        <beanutils.version>1.9.3</beanutils.version>
+        <beanutils.version>1.9.4</beanutils.version>
         <httpClient.version>4.5.7</httpClient.version>
         <commons-io.version>2.6</commons-io.version>
         <jsoup.version>1.12.1</jsoup.version>
