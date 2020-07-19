@@ -30,14 +30,14 @@
 
 ### 截图  
 
-1. 系统菜单
+1. 系统菜单  
 ![系统菜单](https://images.gitee.com/uploads/images/2020/0719/190203_e745eb81_743575.png "3.png")  
-2. 代码生成器 生成一对多 增删改查  
+2. 代码生成器 生成一对多 增删改查     
 ![代码生成器 一对多](https://images.gitee.com/uploads/images/2020/0719/190251_9d8f8bed_743575.png "4.png")   
-3. 流程审批 
+3. 流程审批   
 ![流程详情](https://images.gitee.com/uploads/images/2020/0719/190342_1e3378e4_743575.png "2.png")  
 ![流程消息](https://images.gitee.com/uploads/images/2020/0719/190403_608dee0d_743575.png "5.png")  
-4. 整合 Activiti Modeler 
+4. 整合 Activiti Modeler   
 ![activiti modeler](https://images.gitee.com/uploads/images/2020/0719/190426_d376934b_743575.png "1.png")  
 
 ### License
