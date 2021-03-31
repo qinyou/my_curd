@@ -38,7 +38,7 @@
         <logback.version>1.2.3</logback.version>
         <google-zxing.version>3.3.2</google-zxing.version>
 
-        <google-guava.version>27.1-jre</google-guava.version>
+        <google-guava.version>29.0-jre</google-guava.version>
         <jodd-time.version>2.10.1</jodd-time.version>
         <easypoi.version>4.0.0</easypoi.version>
         <beanutils.version>1.9.3</beanutils.version>
