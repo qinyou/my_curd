@@ -44,7 +44,7 @@
         <beanutils.version>1.9.3</beanutils.version>
         <httpClient.version>4.5.7</httpClient.version>
         <commons-io.version>2.6</commons-io.version>
-        <jsoup.version>1.12.1</jsoup.version>
+        <jsoup.version>1.14.2</jsoup.version>
 
         <activiti.version>5.22.0</activiti.version>
         <jackson.version>2.2.3</jackson.version>
