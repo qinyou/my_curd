@@ -30,7 +30,7 @@
         <cron4j.version>2.2.5</cron4j.version>
         <fastjson.version>1.2.55</fastjson.version>
 
-        <mysql-connector.version>5.1.44</mysql-connector.version>
+        <mysql-connector.version>8.0.28</mysql-connector.version>
         <druid.version>1.0.29</druid.version>
         <freemarker.version>2.3.28</freemarker.version>
         <jedis.version>2.7.2</jedis.version>
