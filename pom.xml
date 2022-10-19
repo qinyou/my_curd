@@ -47,7 +47,7 @@
         <jsoup.version>1.12.1</jsoup.version>
 
         <activiti.version>5.22.0</activiti.version>
-        <jackson.version>2.2.3</jackson.version>
+        <jackson.version>2.13.4</jackson.version>
         <batik.version>1.7</batik.version>
     </properties>
 
